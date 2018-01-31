@@ -49,9 +49,9 @@ Below are the steps to execute the application:
 Credentials:
 Once client starts, it will have 2 options:
 1. Login: currently credentials are hard-coded in the server which are as follows:
-				Username	Password
+			Username	Password
 admin user		admin		admin
-Customer User	john		john123
+Customer User		john		john123
 
 Based on the selected type of user, different options (view) will be displayed. And further if those options are selected, server will prompt respective message showing working of rmi communication between client and server.
  
