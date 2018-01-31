@@ -19,38 +19,38 @@ policy
 
 makefile will compile all the java files and create respective class files
 
-Below are the steps to execute the application
-I. Login to Tesla
+Below are the steps to execute the application:
+0. Login to Tesla
 	a. Open putty
 	b. enter host name: tesla.cs.iupui.edu 
 	c. port: 22
 	d. Click open
 	e. Enter valid credentials
 
-II. Run the registry on port 2010
+1. Run the registry on port 2010
 	a. Open the console as mentioned in 0 and execute the below command
 	b. rmiregistry 2010&
 
-III. Open a console and execute below commands to run the server:
+2. Open a console and execute below commands to run the server:
 	a. cd %FilePath%
 	b. make
 	c. java -Djava.security.policy=policy MarketPlaceServer
 
-IV. Open a new console and execute below commands to run client:
+3. Open a new console and execute below commands to run client:
 	a. cd %FilePath%
 	b. java -Djava.security.policy=policy User
 
-V. To Stop the registry:
+4. To Stop the registry:
 	a. Stop the server by ctrl + c
 	b. type 'fg' and enter
 	
 Credentials:
 Once client starts, it will have 2 options:
-Login: currently credentials are hard-coded in the server which are as follows:
-			Username	Password
+1. Login: currently credentials are hard-coded in the server which are as follows:
+				Username	Password
 admin user		admin		admin
-Customer User		john		john123
+Customer User	john		john123
 
 Based on the selected type of user, different options (view) will be displayed. And further if those options are selected, server will prompt respective message showing working of rmi communication between client and server.
  
-Register: Though this has not been implemented yet, if this option is selected server will show message showing rmi connection is working. 
+2. Register: Though this has not been implemented yet, if this option is selected server will show message showing rmi connection is working. 
