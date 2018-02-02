@@ -10,7 +10,9 @@ import java.util.Scanner;
 
 public class User {
 
-	
+	// Ryan: Is this a View? If so it is in violation of the separation of
+	// concerns that we have discussed in lecture. You would need to separate
+	// the "framework" from the application functionality.
 	
 	public static void main(String[] args) {
 		// RMI Security Manager

@@ -12,6 +12,10 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.Scanner;
 
+// Ryan: Is this a View? If so it is in violation of the separation of
+// concerns that we have discussed in lecture. You would need to separate
+// the "framework" from the application functionality.
+
 public class Customer {
 
 	private String username;

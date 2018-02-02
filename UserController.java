@@ -8,6 +8,8 @@
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
+// Ryan: We should use a Controller to interact with the "framework."
+
 public class UserController extends UnicastRemoteObject  implements IUserController{
 
 	UserModel lg;
