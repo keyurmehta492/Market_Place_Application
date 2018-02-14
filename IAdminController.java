@@ -1,9 +1,10 @@
-/* Assignment 1
- *  
- * Honor Pledge:
+/* Honor Pledge: 
+ * 
  * I pledge that I have neither given nor received any help on this assignment.
  * -mehtake 
  */
+
+package interfaces;
 
 public interface IAdminController extends java.rmi.Remote{
 

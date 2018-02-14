@@ -1,17 +1,21 @@
-/* Assignment 1
- *  
- * Honor Pledge:
+/* Honor Pledge: 
+ * 
  * I pledge that I have neither given nor received any help on this assignment.
  * -mehtake 
  */
 
+package serverController;
+
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+
+import interfaces.ICustomerController;
+import model.CustomerModel;
 
 public class CustomerController extends UnicastRemoteObject  implements ICustomerController{
 
 	CustomerModel cm;
-	protected CustomerController() throws RemoteException {
+	public CustomerController() throws RemoteException {
 		super();
 		cm = new CustomerModel();
 	}

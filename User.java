@@ -1,26 +1,38 @@
-/* Assignment 1
+/* Honor Pledge: 
  * 
- * Honor Pledge:
  * I pledge that I have neither given nor received any help on this assignment.
  * -mehtake 
  */
 
-import java.rmi.Naming;
+package view;
+
 import java.util.Scanner;
+
+import clientController.*;
 
 public class User {
 
 	// Ryan: Is this a View? If so it is in violation of the separation of
-	// concerns that we have discussed in lecture. You would need to separate
+	// concern lecture. You would need to separate
 	// the "framework" from the application functionality.
 	
-	public static void main(String[] args) {
-		// RMI Security Manager
-		System.setSecurityManager(new SecurityManager());
-		Scanner input = new Scanner(System.in);
+	//FIXED: RMI communication is separated from the view. 
+	//		 Now, request from view is forwarded to front controller and then to RMIClient.
+	
+	FrontController fc;
+	private Scanner input;
+	
+	public User(FrontController fc){
+		this.fc = fc;
+	}
+	
+	public void userView() {
+		
+		input = new Scanner(System.in);
 		int val;
 
 		//User view 
+		
 		do {
 			System.out.println("\n*****Welcome to Market Place Application*****");
 			System.out.println("\nEnter the option from below: ");
@@ -41,64 +53,33 @@ public class User {
 			
 			}while(val!=3);
 
-	} //main
+	} //userView
 
-	public static void login() {
+	public void login() {
 		
-		Scanner input = new Scanner(System.in);
-		String username, password;
+		String username;
+		String password;
 		int result = 0;
-		String name;
-		
+		input= new Scanner(System.in);
+				
 		System.out.print("Enter the username: ");
 		username = input.nextLine();
 		System.out.print("Enter the password: ");
 		password = input.nextLine();
+		// pass to front controller to verify basic check and authentication
 		
-		try {
-			name = "//tesla.cs.iupui.edu:2010/userController";
-			//RMI lookup
-			IUserController marketController = (IUserController) Naming.lookup(name);
-			result = marketController.userCheck(username, password);
-		} 
-		catch (Exception e) {
-			System.out.println("Something went wrong...");
-			e.printStackTrace();
-		} 
+		result = fc.signIn(username, password);
 		
-		//Admin credentials
-		if(result == 1){
-			System.out.println("Administrator Login Successful");
-			
-			Administrator admin = new Administrator(username);
-			admin.adminView();
+		if(result == 0) {
+			System.out.println("Username or Password are Incorrect!!");
 		}
-		//Customer credentials
-		else if(result == 2){
-			System.out.println("Customer Login Successful");
-			
-			Customer cust = new Customer(username);
-			cust.customerView();
-		}
-		else 
-			System.out.println("Invalid Credential!!");
+		
 	} //login
+	
 	
 	//To register new user
 	public static void register() {
-		String name;
-		int result;
-		
-		try {
-			name = "//tesla.cs.iupui.edu:2010/userController";
-			//RMI lookup 
-			IUserController marketController = (IUserController) Naming.lookup(name);
-			result = marketController.userRegister();
-		} 
-		catch (Exception e) {
-			System.out.println("Something went wrong...");
-			e.printStackTrace();
-		}
+			//functionality is not implemented yet
 	} //register
 	
-} //class
+} //class User

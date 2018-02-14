@@ -1,53 +1,31 @@
-/* Assignment 1
- *  
- * Honor Pledge:
+/* Honor Pledge: 
+ * 
  * I pledge that I have neither given nor received any help on this assignment.
  * -mehtake 
  */
 
-import java.rmi.Naming;
+package server;
+
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
+import rmi.*;
+
 public class MarketPlaceServer extends UnicastRemoteObject {
 
-	private String name;
-	
-	public MarketPlaceServer(String name) throws RemoteException {
-		this.name = name;
+	protected MarketPlaceServer() throws RemoteException {
+		
 	}
 
 	public static void main(String[] args) {
+		// RMI Security Manager
 		System.setSecurityManager(new SecurityManager());
 			
-		try {
+		System.out.println("Market Place Server is starting...");
+		//initialte RMI service
+		RmiServer rmi = new RmiServer();
+		rmi.serverBind();
 			
-			String user_name = "//tesla.cs.iupui.edu:2010/userController";
-			String cust_name = "//tesla.cs.iupui.edu:2010/customerController";
-			String admin_name = "//tesla.cs.iupui.edu:2010/adminController";
-			
-			System.out.println("Market Place Server is starting...");
-			UserController UserController = new UserController();
-			CustomerController CustController = new CustomerController();
-			AdminController adminController = new AdminController();
-
-			// Binding to the RMI Service.
-			System.out.println("MarketPlaceServer: binding it to name: " + user_name);
-			Naming.rebind(user_name, UserController);
-			
-			System.out.println("MarketPlaceServer: binding it to name: " + cust_name);
-			Naming.rebind(cust_name, CustController);
-			
-			System.out.println("MarketPlaceServer: binding it to name: " + admin_name);
-			Naming.rebind(admin_name, adminController);
-			
-			System.out.println("Binding Done!! Welcome to MarketPlace Server ******");
-		} 
-		
-		catch (Exception ex) {
-			ex.printStackTrace();
-		}	
-	
 	} //main
 
 	

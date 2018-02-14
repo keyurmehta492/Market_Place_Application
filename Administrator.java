@@ -1,34 +1,42 @@
-/* Assignment 1
- *  
- * Honor Pledge:
+/* Honor Pledge: 
+ * 
  * I pledge that I have neither given nor received any help on this assignment.
  * -mehtake 
  */
 
+package view;
 
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.util.Scanner;
 
-// Ryan: Is this a View? If so it is in violation of the separation of
-// concerns that we have discussed in lecture. You would need to separate
+import abstractFactory.*;
+import command.*;
+
+// Ryan: Is this a View? If so it is in violation of the so separate
 // the "framework" from the application functionality.
+
+//FIXED: RMI communication is separated from the view. 
+//Now, request from view is forwarded to commandInvoker using command pattern and then to RMIClient.
 
 public class Administrator {
 
 	private String username;
 	private int opt,result;
-	String name = "//tesla.cs.iupui.edu:2010/adminController";
 	
-	IAdminController adminController ;
 	
+	CommandInvoker admincommand;
 	Scanner input = new Scanner(System.in);
 
-	Administrator(String username) {
-		//RMI lookup
+	Administrator() {
+		
+	}
+	
+	public Administrator(String username) {
 		this.username= username;
 		try {
-			this.adminController = (IAdminController) Naming.lookup(this.name);
+			admincommand = new CommandInvoker();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -67,45 +75,30 @@ public class Administrator {
 	
 	//for Admin to browse the product
 	public int browseProduct() {
-		try {
-			result = adminController.adminBrowseProd();
-		} catch (RemoteException e) {
-			System.out.println("Something went wrong in admin Browse Product...");
-			e.printStackTrace();
-		}
+			
+			//admincommand.sendACommand("browse");
+			
+			AbstractFact fact = FactoryDecider.getFact("Admin");
+			fact.getBrowseA("Admin", admincommand);
+			
 		return 0;
 	}
 	
 	//for Admin to add the product
 	public int addProduct() {
-		try {
-			result = adminController.adminAddProd();
-		} catch (RemoteException e) {
-			System.out.println("Something went wrong in admin add Product...");
-			e.printStackTrace();
-		}
+		admincommand.sendACommand("add");
 		return 0;
 	}
 	
 	//for Admin to update the product
 	public int updateProduct() {
-		try {
-			result = adminController.adminUpdateProd();
-		} catch (RemoteException e) {
-			System.out.println("Something went wrong in admin Update Product...");
-			e.printStackTrace();
-		}
+		admincommand.sendACommand("update");
 		return 0;
 	}
 	
 	//for Admin to delete the product
 	public int deleteProduct() {
-		try {
-			result = adminController.adminDeleteProd();
-		} catch (RemoteException e) {
-			System.out.println("Something went wrong in admin Delete Product...");
-			e.printStackTrace();
-		}
+		admincommand.sendACommand("delete");
 		return 0;
 	}
 

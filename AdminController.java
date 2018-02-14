@@ -1,18 +1,22 @@
-/* Assignment 1
- *  
- * Honor Pledge:
+/* Honor Pledge: 
+ * 
  * I pledge that I have neither given nor received any help on this assignment.
  * -mehtake 
  */
 
+package serverController;
+
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+
+import interfaces.IAdminController;
+import model.AdminModel;
 
 public class AdminController extends UnicastRemoteObject  implements IAdminController{
 
 	AdminModel am;
 	
-	protected AdminController() throws RemoteException {
+	public AdminController() throws RemoteException {
 		super();
 		am = new AdminModel();
 	}
