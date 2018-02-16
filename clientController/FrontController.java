@@ -6,6 +6,7 @@
 
 package clientController;
 
+// Ryan: Are you really using everything in this package?
 import rmi.*;
 
 public class FrontController {

@@ -6,6 +6,8 @@
 
 package abstractFactory;
 
+// Ryan: Always include useful comments in every file.
+
 public class FactoryDecider {
 
 	public static AbstractFact getFact(String user) {
