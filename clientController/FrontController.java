@@ -6,8 +6,10 @@
 
 package clientController;
 
+import rmi.RmiClient;
+
 // Ryan: Are you really using everything in this package?
-import rmi.*;
+//FIXED: Now only importing the required java classes from package and not all the classes from package.
 
 public class FrontController {
 

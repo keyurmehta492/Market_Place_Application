@@ -6,12 +6,11 @@
 
 package view;
 
-import java.rmi.Naming;
-import java.rmi.RemoteException;
 import java.util.Scanner;
 
-import abstractFactory.*;
-import command.*;
+import abstractFactory.AbstractView;
+import command.CommandInvoker;
+
 
 // Ryan: Is this a View? If so it is in violation of the so separate
 // the "framework" from the application functionality.
@@ -19,10 +18,10 @@ import command.*;
 //FIXED: RMI communication is separated from the view. 
 //Now, request from view is forwarded to commandInvoker using command pattern and then to RMIClient.
 
-public class Administrator {
+public class Administrator extends AbstractView{
 
 	private String username;
-	private int opt,result;
+	private int opt;
 	
 	
 	CommandInvoker admincommand;
@@ -42,7 +41,9 @@ public class Administrator {
 		}
 	}
 	
-	public int adminView() {
+	//implementing abstract method to generate admin view
+	@Override
+	public void displayView() {
 		//Admin View
 		do {
 			System.out.println("\n*****Welcome " + username + " to MarketPlace *****");
@@ -70,16 +71,13 @@ public class Administrator {
 			}while(opt!=5);
 		
 		System.out.println("Thank you for using MarketPlace Application!!");
-		return 0;
+		
 	}
 	
 	//for Admin to browse the product
 	public int browseProduct() {
 			
-			//admincommand.sendACommand("browse");
-			
-			AbstractFact fact = FactoryDecider.getFact("Admin");
-			fact.getBrowseA("Admin", admincommand);
+			admincommand.sendACommand("browse");
 			
 		return 0;
 	}

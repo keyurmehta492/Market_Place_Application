@@ -7,6 +7,8 @@
 package interfaces;
 
 public interface ICommand {
+	
+	//Command interface method to execute the commands
 	public void execute();
 		
 }

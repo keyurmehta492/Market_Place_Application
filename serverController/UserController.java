@@ -13,7 +13,6 @@ import interfaces.IUserController;
 import model.UserModel;
 
 // Ryan: We should use a Controller to interact with the "framework."
-
 //FIXED: Controller is being called from framework (RMI)  
 
 public class UserController extends UnicastRemoteObject  implements IUserController{
