@@ -5,27 +5,25 @@
  */
 
 package abstractFactory;
-import command.*;
-import view.*;
+
+import view.Administrator;
+
 
 // Ryan: Always include useful comments in every file.
+//FIXED: Included the useful comments in all files.
 
 public class ConcreteAdminFact extends AbstractFact{
 
-	@Override
-	public void getBrowseA(String user, CommandInvoker adminCommand) {
-		adminCommand.sendACommand("browse");
-		
-	}
+	Administrator admin;
 
+	//to create an object of administrator view
 	@Override
-	public void getBrowseC(String user, CommandInvoker custCommand) {
-		// TODO Auto-generated method stub
+	public void createView(String username) {
 		
-		// Ryan: This method does not seem to be doing anything here
-		// why not remove it?
+		admin = new Administrator(username);
+		admin.displayView();
 		
 	}
 
 	
-}
+}//ConcreteAdminFact

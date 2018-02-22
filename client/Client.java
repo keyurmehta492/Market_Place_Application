@@ -6,8 +6,8 @@
 
 package client;
 
-import clientController.*;
-import view.*;
+import clientController.FrontController;
+import view.User;
 
 public class Client {
 

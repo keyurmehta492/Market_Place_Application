@@ -8,7 +8,9 @@ package view;
 
 import java.util.Scanner;
 
-import clientController.*;
+import clientController.FrontController;
+
+
 
 public class User {
 
@@ -26,6 +28,8 @@ public class User {
 		this.fc = fc;
 	}
 	
+
+	//to generate user view
 	public void userView() {
 		
 		input = new Scanner(System.in);

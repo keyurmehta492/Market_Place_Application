@@ -5,29 +5,22 @@
  */
 
 package abstractFactory;
-import command.*;
-import view.*;
+
+import view.Customer;
 
 // Ryan: Always include useful comments in every file.
+//FIXED: Included the useful comments in all files.
 
 public class ConcreteCustFact extends AbstractFact {
 
+	Customer cust;
 
+	//to create an object of Customer view
 	@Override
-	public void getBrowseA(String user, CommandInvoker adminCommand) {
-		// TODO Auto-generated method stub
-		
-		// Ryan: What is the point of this method? It seems to not
-		// add any functionality - so why not remove it?
+	public void createView(String username) {
+		cust = new Customer(username);
+		cust.displayView();
 		
 	}
 
-	@Override
-	public void getBrowseC(String user, CommandInvoker custCommand) {
-		custCommand.sendCCommand("browse");
-		
-	}
-
-	
-
-}
+} //ConcreteCustFact

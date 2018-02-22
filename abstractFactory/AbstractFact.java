@@ -6,16 +6,17 @@
 
 package abstractFactory;
 
-import command.*;
-import view.*;
 
 // Ryan: Always include useful comments in every file.
+//FIXED: Included the useful comments in all files.
 
 // Ryan: This would not be a good place to use the Abstract Factory pattern -
 // here you are really creating only one thing and "ignoring" the other.
+//FIXED: Implemented abstract factory by declaring only 1 method in abstract class and implementing it 
+//		 on 2 different concrete classes.
+
 public abstract class AbstractFact {
 
-	public abstract void getBrowseA(String user, CommandInvoker adminCommand);
-	public abstract void getBrowseC(String user, CommandInvoker custCommand);
-
-}
+	//Abstract method to which will create respective view object.
+	public abstract void createView(String user);
+}// AbstractFact

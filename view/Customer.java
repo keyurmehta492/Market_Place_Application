@@ -7,14 +7,11 @@
 package view;
 
 
-import java.net.MalformedURLException;
-import java.rmi.Naming;
-import java.rmi.NotBoundException;
-import java.rmi.RemoteException;
 import java.util.Scanner;
 
-import abstractFactory.*;
-import command.*;
+import abstractFactory.AbstractView;
+import command.CommandInvoker;
+
 
 // Ryan: Is this a View? If so it is in violation of tho separate
 // the "framework" from the application functionality.
@@ -22,10 +19,10 @@ import command.*;
 //FIXED: RMI communication is separated from the view. 
 //		 Now, request from view is forwarded to commandInvoker using command pattern and then to RMIClient.
 
-public class Customer {
+public class Customer extends AbstractView{
 
 	private String username;
-	private int opt, result;
+	private int opt;
 	
 	CommandInvoker customerCommand;
 	
@@ -39,7 +36,9 @@ public class Customer {
 		
 	}
 	
-	public int customerView() {
+	//Implementing abstract method to generate customer view
+	@Override
+	public void displayView() {
 		//Customer view
 		do {
 			System.out.println("\n*****Welcome " + username + " to MarketPlace *****");
@@ -62,16 +61,13 @@ public class Customer {
 			}while(opt!=3);
 		
 			System.out.println("Thank you for using MarketPlace Application! Happy Shopping !!");
-			return 0;
+			
 	}
 	
 	//Customer browses the product
 	public int browseProduct() {
 			
-			//customerCommand.sendCCommand("browse");
-			
-			AbstractFact fact = FactoryDecider.getFact("Customer");
-			fact.getBrowseC("Customer", customerCommand);	
+			customerCommand.sendCCommand("browse");
 			return 0;
 	}
 	

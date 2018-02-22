@@ -9,7 +9,9 @@ package rmi;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 
-import interfaces.*;
+import interfaces.IAdminController;
+import interfaces.ICustomerController;
+import interfaces.IUserController;
 
 public class RmiClient {
 

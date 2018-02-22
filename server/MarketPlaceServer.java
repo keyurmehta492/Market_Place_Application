@@ -9,7 +9,7 @@ package server;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
-import rmi.*;
+import rmi.RmiServer;
 
 public class MarketPlaceServer extends UnicastRemoteObject {
 
@@ -22,7 +22,7 @@ public class MarketPlaceServer extends UnicastRemoteObject {
 		System.setSecurityManager(new SecurityManager());
 			
 		System.out.println("Market Place Server is starting...");
-		//initialte RMI service
+		//initialize RMI service
 		RmiServer rmi = new RmiServer();
 		rmi.serverBind();
 			

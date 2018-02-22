@@ -5,12 +5,14 @@
  */
 
 package clientController;
-import view.*;
+
+import abstractFactory.AbstractFact;
+import abstractFactory.ConcreteAdminFact;
+import abstractFactory.ConcreteCustFact;
 
 public class Dispatcher {
 
-	Administrator admin;
-	Customer cust;
+	AbstractFact fact;
 	
 	Dispatcher(){
 		
@@ -21,16 +23,16 @@ public class Dispatcher {
 		
 				if(result == 1){
 					System.out.println("Administrator Login Successful");
-					admin = new Administrator(username);
-					
-					admin.adminView();
+										
+					AbstractFact fact = new ConcreteAdminFact();
+					fact.createView(username);
 				}
 		//Customer credentials
 				else if(result == 2){
 					System.out.println("Customer Login Successful");
-					
-					cust = new Customer(username);
-					cust.customerView();
+									
+					AbstractFact fact = new ConcreteCustFact();
+					fact.createView(username);
 				}
 	}
 	

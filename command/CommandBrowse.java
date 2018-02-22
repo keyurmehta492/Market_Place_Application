@@ -5,8 +5,9 @@
  */
 
 package command;
-import interfaces.*;
-import rmi.*;
+
+import interfaces.ICommand;
+import rmi.RmiClient;
 
 public class CommandBrowse implements ICommand {
 
