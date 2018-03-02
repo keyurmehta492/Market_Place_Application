@@ -6,6 +6,7 @@
 
 package abstractFactory;
 
+import server.Session;
 import view.Customer;
 
 // Ryan: Always include useful comments in every file.
@@ -15,10 +16,10 @@ public class ConcreteCustFact extends AbstractFact {
 
 	Customer cust;
 
-	//to create an object of Customer view
+	//Create an object of customer view and display the customer view
 	@Override
-	public void createView(String username) {
-		cust = new Customer(username);
+	public void createView(Session session) {
+		cust = new Customer(session);
 		cust.displayView();
 		
 	}

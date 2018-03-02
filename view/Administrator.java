@@ -10,6 +10,7 @@ import java.util.Scanner;
 
 import abstractFactory.AbstractView;
 import command.CommandInvoker;
+import server.Session;
 
 
 // Ryan: Is this a View? If so it is in violation of the so separate
@@ -22,6 +23,7 @@ public class Administrator extends AbstractView{
 
 	private String username;
 	private int opt;
+	Session session = null;
 	
 	
 	CommandInvoker admincommand;
@@ -31,10 +33,12 @@ public class Administrator extends AbstractView{
 		
 	}
 	
-	public Administrator(String username) {
-		this.username= username;
+	public Administrator(Session session) {
+		this.username= session.getUserName();
+		this.session = session;
+		//this.session.setUserRole("CUSTOMER");
 		try {
-			admincommand = new CommandInvoker();
+			admincommand = new CommandInvoker(session);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -66,7 +70,7 @@ public class Administrator extends AbstractView{
 							break;
 					case 4: deleteProduct();
 							break;
-				}
+				}//switch
 			
 			}while(opt!=5);
 		
@@ -77,26 +81,26 @@ public class Administrator extends AbstractView{
 	//for Admin to browse the product
 	public int browseProduct() {
 			
-			admincommand.sendACommand("browse");
+			session = admincommand.sendACommand("browse");
 			
 		return 0;
 	}
 	
 	//for Admin to add the product
 	public int addProduct() {
-		admincommand.sendACommand("add");
+		session = admincommand.sendACommand("add");
 		return 0;
 	}
 	
 	//for Admin to update the product
 	public int updateProduct() {
-		admincommand.sendACommand("update");
+		session = admincommand.sendACommand("update");
 		return 0;
 	}
 	
 	//for Admin to delete the product
 	public int deleteProduct() {
-		admincommand.sendACommand("delete");
+		session = admincommand.sendACommand("delete");
 		return 0;
 	}
 

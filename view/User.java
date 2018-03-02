@@ -11,7 +11,6 @@ import java.util.Scanner;
 import clientController.FrontController;
 
 
-
 public class User {
 
 	// Ryan: Is this a View? If so it is in violation of the separation of
@@ -53,7 +52,7 @@ public class User {
 					
 					case 2: register();
 							break;
-				}
+				}//switch
 			
 			}while(val!=3);
 
@@ -65,15 +64,17 @@ public class User {
 		String password;
 		int result = 0;
 		input= new Scanner(System.in);
-				
+		
+		//take user credentials as input from user
 		System.out.print("Enter the username: ");
 		username = input.nextLine();
 		System.out.print("Enter the password: ");
 		password = input.nextLine();
-		// pass to front controller to verify basic check and authentication
 		
+		// pass to front controller to verify basic check and authentication
 		result = fc.signIn(username, password);
 		
+		//if user is not authenticated or credentials are not entered then ask user again
 		if(result == 0) {
 			System.out.println("Username or Password are Incorrect!!");
 		}

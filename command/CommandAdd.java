@@ -8,19 +8,22 @@ package command;
 
 import interfaces.ICommand;
 import rmi.RmiClient;
+import server.Session;
 
 public class CommandAdd implements ICommand {
 
 	RmiClient rmi;
+	Session session = null;
 	
-	CommandAdd() {
+	CommandAdd(Session session) {
 		 rmi = new RmiClient();
+		 this.session = session;
 	}
 	@Override
-	public void execute() {
-			//Execute add command
-			rmi.sendAdminRequest("add");
-		
-	}
+	public Session execute() {
+			//Execute add command for Admin user to add the product
+			session = rmi.sendAdminRequest("add", session);
+			return session;
+	}// execute
 
-}
+} // class CommandAdd

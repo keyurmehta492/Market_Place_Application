@@ -11,6 +11,7 @@ import java.rmi.server.UnicastRemoteObject;
 
 import interfaces.ICustomerController;
 import model.CustomerModel;
+import server.Session;
 
 public class CustomerController extends UnicastRemoteObject  implements ICustomerController{
 
@@ -22,18 +23,18 @@ public class CustomerController extends UnicastRemoteObject  implements ICustome
 
 	@Override
 	//customers browses the products
-	public int custBrowseProd() throws RemoteException {
+	public Session custBrowseProd(Session session) throws RemoteException {
 		
-		cm.custBrowse();
-		return 0;
+		session = cm.custBrowse(session);
+		return session;
 	}
 
 	@Override
 	//customers shopping cart
-	public int custShoppingCart() throws RemoteException {
+	public Session custShoppingCart(Session session) throws RemoteException {
 		
-		cm.custShopping();
-		return 0;
+		session = cm.custShopping(session);
+		return session;
 	}
 	
 } // class CustomerController

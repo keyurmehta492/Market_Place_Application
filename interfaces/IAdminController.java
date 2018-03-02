@@ -6,17 +6,26 @@
 
 package interfaces;
 
+import server.Session;
+
 public interface IAdminController extends java.rmi.Remote{
 
+	//User defined annotation is placed to check user has ADMIN role or not to access these operations.
+	
 	//for Admin to browse the product
-	int adminBrowseProd() throws java.rmi.RemoteException;
+	@RequiresRole("ADMIN")
+	Session adminBrowseProd(Session session) throws java.rmi.RemoteException;
 	
 	//for Admin to add the product
-	int adminAddProd() throws java.rmi.RemoteException;
+	@RequiresRole("ADMIN")
+	Session adminAddProd(Session session) throws java.rmi.RemoteException;
 	
 	//for Admin to update the product
-	int adminUpdateProd() throws java.rmi.RemoteException;
+	@RequiresRole("ADMIN")
+	Session adminUpdateProd(Session session) throws java.rmi.RemoteException;
 
 	//for Admin to delete the product
-	int adminDeleteProd() throws java.rmi.RemoteException;
-}
+	@RequiresRole("ADMIN")
+	Session adminDeleteProd(Session session) throws java.rmi.RemoteException;
+
+} //interface IAdminController

@@ -11,6 +11,7 @@ import java.rmi.server.UnicastRemoteObject;
 
 import interfaces.IAdminController;
 import model.AdminModel;
+import server.Session;
 
 public class AdminController extends UnicastRemoteObject  implements IAdminController{
 
@@ -23,30 +24,35 @@ public class AdminController extends UnicastRemoteObject  implements IAdminContr
 
 	//for Admin to browse the product
 	@Override
-	public int adminBrowseProd() throws RemoteException {
-		am.adminBrowse();
-		return 0;
+	public Session adminBrowseProd(Session session) throws RemoteException {
+		session = am.adminBrowse(session);
+		return session;
 	}
 
 	//for Admin to add the product
 	@Override
-	public int adminAddProd() throws RemoteException {
-		am.adminAdd();
-		return 0;
+	public Session adminAddProd(Session session) throws RemoteException {
+		try {
+			session = am.adminAdd(session);
+		}
+		catch (Exception e) {
+			
+		}
+		return session;
 	}
 
 	//for Admin to update the product
 	@Override
-	public int adminUpdateProd() throws RemoteException {
-		am.adminUpdate();
-		return 0;
+	public Session adminUpdateProd(Session session) throws RemoteException {
+		session = am.adminUpdate(session);
+		return session;
 	}
 
 	//for Admin to delete the product
 	@Override
-	public int adminDeleteProd() throws RemoteException {
-		am.adminDelete();
-		return 0;
+	public Session adminDeleteProd(Session session) throws RemoteException {
+		session = am.adminDelete(session);
+		return session;
 	}
 
 }// class AdminController

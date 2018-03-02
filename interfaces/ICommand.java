@@ -6,9 +6,11 @@
 
 package interfaces;
 
+import server.Session;
+
 public interface ICommand {
 	
 	//Command interface method to execute the commands
-	public void execute();
+	public Session execute();
 		
-}
+} //interface ICommand

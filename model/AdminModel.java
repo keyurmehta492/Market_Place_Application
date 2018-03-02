@@ -6,30 +6,32 @@
 
 package model;
 
+import server.Session;
+
 public class AdminModel {
 
-	//for Admin to browse the product
-	public int adminBrowse() {
+	//for Admin user to browse the product
+	public Session adminBrowse(Session session) {
 		System.out.println("Admin wants to browse the products!!" );
-		return 0;
+		return session;
 	}
 
-	//for Admin to add the product
-	public int adminAdd() {
+	//for Admin user to add the product
+	public Session adminAdd(Session session) {
 		System.out.println("Admin wants to add the products!!" );
-		return 0;
+		return session;
 	}
 	
-	//for Admin to update the product
-	public int adminUpdate() {
+	//for Admin user to update the product
+	public Session adminUpdate(Session session) {
 		System.out.println("Admin wants to update the products!!" );
-		return 0;
+		return session;
 	}
 	
-	//for Admin to delete the product
-	public int adminDelete() {
+	//for Admin user to delete the product
+	public Session adminDelete(Session session) {
 		System.out.println("Admin wants to delete the products!!" );
-		return 0;
+		return session;
 	}
 
 } // class AdminModel
