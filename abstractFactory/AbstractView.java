@@ -8,6 +8,6 @@ package abstractFactory;
 
 public abstract class AbstractView {
 
-	//Abstract method to which will create views based on the role
+	//Abstract method which will create views based on the role
 		public abstract void displayView();
 }//AbstractView

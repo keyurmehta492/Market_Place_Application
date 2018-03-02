@@ -6,43 +6,65 @@
 
 package command;
 
+import server.Session;
+
 public class CommandInvoker {
 	
+	Session session = null;
+	public CommandInvoker(Session session) {
+		this.session = session;
+	}
 	
-	public void sendACommand(String command) {
+	//Invoke commands related to the Admin user
+	public Session sendACommand(String command) {
 		
 		switch(command) {
+			//invoke the browse command for Admin user
 			case "browse":
-				CommandBrowse browse = new CommandBrowse();
-				browse.execute();
+				CommandBrowse browse = new CommandBrowse(session);
+				session = browse.execute();
 				break;
+			
+			//invoke the add command for Admin user
 			case "add":
-				CommandAdd add = new CommandAdd();
-				add.execute();
+				CommandAdd add = new CommandAdd(session);
+				session=add.execute();
 				break;
+				
+			//invoke the update command for Admin user
 			case "update":
-				CommandUpdate update = new CommandUpdate();
-				update.execute();
+				CommandUpdate update = new CommandUpdate(session);
+				session=update.execute();
 				break;
+				
+			//invoke the delete command for Admin user
 			case "delete":
-				CommandDelete delete = new CommandDelete();
-				delete.execute();
+				CommandDelete delete = new CommandDelete(session);
+				session=delete.execute();
 				break;
-		}
+		}//switchcase
+		
+		return session;
 	} //sendACommand
 	
-	public void sendCCommand(String command) {
+	//Invoke commands related to the Customer user
+	public Session sendCCommand(String command) {
 		
 		switch(command) {
+			//invoke the browse command for Customer user
 			case "browse":
-				CommandCBrowse browse = new CommandCBrowse();
-				browse.execute();
+				CommandCBrowse browse = new CommandCBrowse(session);
+				session = browse.execute();
 				break;
+			
+			//invoke the shopping cart command for Customer user
 			case "shoppingCart":
-				CommandCShoppingCart shopping = new CommandCShoppingCart();
-				shopping.execute();
+				CommandCShoppingCart shopping = new CommandCShoppingCart(session);
+				session = shopping.execute();
 				break;
-		}
+		}//switchcase
+		
+		return session;
 	} //sendCCommand
 
 	

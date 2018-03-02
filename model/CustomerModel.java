@@ -6,18 +6,20 @@
 
 package model;
 
+import server.Session;
+
 public class CustomerModel {
 
-	//customers browses the products
-	public int custBrowse() {
+	//customer user to browses the products
+	public Session custBrowse(Session session) {
 		System.out.println("Customer wants to browse the products!!" );
-		return 0;
+		return session;
 	}
 	
-	//customers shopping cart
-	public int custShopping() {
+	//customer user to shopping cart
+	public Session custShopping(Session session) {
 		System.out.println("Customer wants to see shopping cart!!" );
-		return 0;
+		return session;
 	}
 	
 } //class CustomerModel

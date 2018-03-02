@@ -11,6 +11,7 @@ import java.rmi.server.UnicastRemoteObject;
 
 import interfaces.IUserController;
 import model.UserModel;
+import server.Session;
 
 // Ryan: We should use a Controller to interact with the "framework."
 //FIXED: Controller is being called from framework (RMI)  
@@ -18,6 +19,7 @@ import model.UserModel;
 public class UserController extends UnicastRemoteObject  implements IUserController{
 
 	UserModel lg;
+	Session session = null;
 	
 	public UserController() throws RemoteException {
 		super();
@@ -27,17 +29,18 @@ public class UserController extends UnicastRemoteObject  implements IUserControl
 	String username, password;
 	int result;
 
+	
+	//method to check user credentials and assigne the user role
 	@Override
-	//method to check user credentials
-	public synchronized int userCheck(String username, String password) throws RemoteException {
+	public synchronized Session userCheck(String username, String password) throws RemoteException {
 				
-		this.result = lg.check(username, password);
+		session = lg.checkAuthentication(username, password);
 		
-		return this.result;
+		return session;
 	} //checkuser
 
-	@Override
 	//to register new user
+	@Override
 	public synchronized int userRegister() throws RemoteException {
 		
 		result = lg.register();

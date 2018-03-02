@@ -12,6 +12,7 @@ import java.rmi.RemoteException;
 import interfaces.IAdminController;
 import interfaces.ICustomerController;
 import interfaces.IUserController;
+import server.Session;
 
 public class RmiClient {
 
@@ -24,9 +25,12 @@ public class RmiClient {
 	IUserController userController;
 	IAdminController adminController;
 	ICustomerController custController;
+	Session session = null;
 	
 	public RmiClient() {
 		try {
+			
+			//lookup to connect to the server
 			userController = (IUserController) Naming.lookup(userStr);
 			adminController = (IAdminController) Naming.lookup(adminStr);
 			custController = (ICustomerController) Naming.lookup(custStr);
@@ -35,59 +39,80 @@ public class RmiClient {
 		} 
 	}
 	
-	public int sendRequest(String username, String password) {
+	//send the user credentials to authenticate
+	public Session sendRequest(String username, String password) {
 		try {
-			userType = userController.userCheck(username, password);
+			session = userController.userCheck(username, password);
 					
 		} 
 		catch (Exception e) {
 			System.out.println("Something went wrong in login connection...");
 			e.printStackTrace();
 		}
-		return userType;
-	}
+		
+		return session;
+	}//sendRequest
 	
-	public int sendAdminRequest(String command) {
-		int result = 0;
+	//send admin commands  to perform the operation related to Admin user
+	public Session sendAdminRequest(String command, Session session) {
+		
 		try {
 			switch(command) {
+			
+			//send request to browse product for admin user
 			case "browse":
-				result = adminController.adminBrowseProd();
+				session = adminController.adminBrowseProd(session);
 				break;
+			
+			//send request to add product for admin user
 			case "add":
-					result = adminController.adminAddProd();
+				session = adminController.adminAddProd(session);
 				break;
+			
+			//send request to update product for admin user
 			case "update":
-				result = adminController.adminUpdateProd();
+				session = adminController.adminUpdateProd(session);
 				break;
+			
+			//send request to delete product for admin user
 			case "delete":
-				result = adminController.adminDeleteProd();
+				session = adminController.adminDeleteProd(session);
 				break;
-			}
+			
+			}//switch
+		
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
-		return result;
+		
+		return session;
 	} //sendAdminRequest
 	
-	public int sendCustomerRequest(String command) {
+	//send customer commands  to perform the operation related to Customer user
+	public Session sendCustomerRequest(String command, Session session) {
 		
-		int result = 0;
 		try {
 			switch(command) {
+		
+			//send request to browse product for customer user
 			case "browse":
-				result = custController.custBrowseProd();
+				session = custController.custBrowseProd(session);
 				break;
+		
+			//send request to check shopping cart for customer user
 			case "shoppingCart":
-					result = custController.custShoppingCart();
+				session = custController.custShoppingCart(session);
 				break;
-			}
+			
+			}// switch
+		
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return result;
-	}
+		
+		return session;
+	}//sendCustomerRequest
 	
 } //class RmiClient

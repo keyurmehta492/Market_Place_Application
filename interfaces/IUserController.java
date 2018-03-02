@@ -6,12 +6,14 @@
 
 package interfaces;
 
+import server.Session;
+
 public interface IUserController extends java.rmi.Remote {
 
-	//to check the type of the user
-	int userCheck(String username, String password) throws java.rmi.RemoteException;
+	//to authenticate the credentials of the user
+	Session userCheck(String username, String password) throws java.rmi.RemoteException;
 	
-	//to register new user
+	//to get register new user
 	int userRegister() throws java.rmi.RemoteException;
 	
-}
+} // interface IUserController

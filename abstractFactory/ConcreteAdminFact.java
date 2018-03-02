@@ -6,6 +6,7 @@
 
 package abstractFactory;
 
+import server.Session;
 import view.Administrator;
 
 
@@ -16,11 +17,11 @@ public class ConcreteAdminFact extends AbstractFact{
 
 	Administrator admin;
 
-	//to create an object of administrator view
+	//Create an object of administrator view and display the admin view
 	@Override
-	public void createView(String username) {
+	public void createView(Session session) {
 		
-		admin = new Administrator(username);
+		admin = new Administrator(session);
 		admin.displayView();
 		
 	}

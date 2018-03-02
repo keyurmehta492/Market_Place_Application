@@ -6,6 +6,7 @@
 
 package abstractFactory;
 
+import server.Session;
 
 // Ryan: Always include useful comments in every file.
 //FIXED: Included the useful comments in all files.
@@ -17,6 +18,6 @@ package abstractFactory;
 
 public abstract class AbstractFact {
 
-	//Abstract method to which will create respective view object.
-	public abstract void createView(String user);
+	//Abstract method which will create respective view object.
+	public abstract void createView(Session session);
 }// AbstractFact

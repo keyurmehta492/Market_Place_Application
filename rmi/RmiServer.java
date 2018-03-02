@@ -6,9 +6,14 @@
 
 package rmi;
 
+import java.lang.reflect.Proxy;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 
+import server.AuthorizationInvocationHandler;
+import interfaces.IAdminController;
+import interfaces.ICustomerController;
+import interfaces.IUserController;
 import serverController.AdminController;
 import serverController.CustomerController;
 import serverController.UserController;;
@@ -19,21 +24,33 @@ public class RmiServer {
 	String cust_name = "//tesla.cs.iupui.edu:2010/customerController";
 	String admin_name = "//tesla.cs.iupui.edu:2010/adminController";
 
-	UserController UserController;
-	CustomerController CustController;
-	AdminController adminController;
+	IUserController UserController;
+	ICustomerController CustController;
+	IAdminController adminController;
 
 	public RmiServer() {
 		try {
-			UserController = new UserController();
-			CustController = new CustomerController();
-			adminController = new AdminController();
+			//Proxy pattern to check the user related operation
+			UserController = (IUserController) Proxy.newProxyInstance(IUserController.class.getClassLoader(),
+	                new Class<?>[] {IUserController.class},
+	                new AuthorizationInvocationHandler(new UserController()));
+			
+			//Proxy pattern to check the role of the user is related to customer operations or not
+			CustController = (ICustomerController) Proxy.newProxyInstance(ICustomerController.class.getClassLoader(),
+	                new Class<?>[] {ICustomerController.class},
+	                new AuthorizationInvocationHandler(new CustomerController()));
+			
+			//Proxy pattern to check the role of the user is related to admin operations or not
+			adminController = (IAdminController) Proxy.newProxyInstance(IAdminController.class.getClassLoader(),
+	                new Class<?>[] {IAdminController.class},
+	                new AuthorizationInvocationHandler(new AdminController()));
+		
 		} catch (RemoteException e) {
 
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 		
-	}
+	}//RmiServer
 	
 	public void serverBind() {
 		try {
@@ -53,7 +70,7 @@ public class RmiServer {
 		} 
 		
 		catch (Exception ex) {
-			ex.printStackTrace();
+			//ex.printStackTrace();
 		}	
 
 	} //serverBind

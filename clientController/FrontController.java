@@ -7,6 +7,7 @@
 package clientController;
 
 import rmi.RmiClient;
+import server.Session;
 
 // Ryan: Are you really using everything in this package?
 //FIXED: Now only importing the required java classes from package and not all the classes from package.
@@ -14,8 +15,8 @@ import rmi.RmiClient;
 public class FrontController {
 
 	String username, password;
-		int userType = -1;
-	
+		
+	Session session = null;
 	Dispatcher display;
 	RmiClient rmi;
 	
@@ -35,12 +36,20 @@ public class FrontController {
 			return 0;
 		}
 		else {
-			userType = rmi.sendRequest(username,password);
+			session = rmi.sendRequest(username,password);
 			
-			display.showView(userType,username);
+			//show customized view only if authenticated
+			if(session.getIsAuth() == 1)
+				display.showView(session);
+			
+			//Or else navigate to the user view 
+			else {
+					return session.getIsAuth();
+			}
+				
 		}
-	
-		return userType;
+		return 1;
+		
 	} //signIn
 	
 	

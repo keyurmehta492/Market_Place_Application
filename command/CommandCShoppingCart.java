@@ -8,17 +8,22 @@ package command;
 
 import interfaces.ICommand;
 import rmi.RmiClient;
+import server.Session;
 
 public class CommandCShoppingCart implements ICommand{
 
 	RmiClient rmi;
+	Session session = null;
 	
-	CommandCShoppingCart() {
+	CommandCShoppingCart(Session session) {
 		 rmi = new RmiClient();
+		 this.session = session;
 	}
 	@Override
-	public void execute() {
-		//Execute customer shopping cart command
-		rmi.sendCustomerRequest("shoppingCart");
-	}
-}
+	public Session execute() {
+		//Execute shoppingcart command for Customer user to purchase the product
+		session = rmi.sendCustomerRequest("shoppingCart", session);
+		return session;
+	}//execute
+
+} // class CommandCShoppingCart

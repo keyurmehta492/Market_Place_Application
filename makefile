@@ -7,6 +7,9 @@ JC = javac
 CLASSES = \
 server/MarketPlaceServer.java\
 client/Client.java\
+server/AuthorizationInvocationHandler.java\
+server/AuthorizationException.java\
+server/Session.java\
 view/Administrator.java\
 view/Customer.java\
 view/User.java\
@@ -18,6 +21,7 @@ interfaces/IAdminController.java\
 interfaces/ICustomerController.java\
 interfaces/IUserController.java\
 interfaces/ICommand.java\
+interfaces/RequiresRole.java\
 serverController/AdminController.java\
 serverController/CustomerController.java\
 serverController/UserController.java\

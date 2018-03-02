@@ -9,6 +9,7 @@ package clientController;
 import abstractFactory.AbstractFact;
 import abstractFactory.ConcreteAdminFact;
 import abstractFactory.ConcreteCustFact;
+import server.Session;
 
 public class Dispatcher {
 
@@ -18,23 +19,27 @@ public class Dispatcher {
 		
 	}
 	
-	public void showView(int result, String username) {
+	public void showView(Session session) {
 		//Admin credentials
 		
-				if(result == 1){
+				if(session.getUserRole().equals("ADMIN")){
 					System.out.println("Administrator Login Successful");
-										
+					
+					//Create concreate class object to display the admin view
 					AbstractFact fact = new ConcreteAdminFact();
-					fact.createView(username);
+					fact.createView(session);
 				}
+				
 		//Customer credentials
-				else if(result == 2){
+				else if(session.getUserRole().equals("CUSTOMER")){
 					System.out.println("Customer Login Successful");
-									
+					
+					//Create concreate class object to display the customer view
 					AbstractFact fact = new ConcreteCustFact();
-					fact.createView(username);
+					fact.createView(session);
 				}
-	}
+			
+	}//showview
 	
 	
 } //class dispatcher

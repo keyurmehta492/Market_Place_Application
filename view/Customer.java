@@ -11,6 +11,7 @@ import java.util.Scanner;
 
 import abstractFactory.AbstractView;
 import command.CommandInvoker;
+import server.Session;
 
 
 // Ryan: Is this a View? If so it is in violation of tho separate
@@ -25,14 +26,16 @@ public class Customer extends AbstractView{
 	private int opt;
 	
 	CommandInvoker customerCommand;
-	
+	Session session = null;
 	
 	Scanner input = new Scanner(System.in);
 	
-	public Customer(String username) {
+	public Customer(Session session) {
 		
-		this.username= username;
-		customerCommand = new CommandInvoker();
+		this.username= session.getUserName();
+		this.session = session;
+		this.session.setUserRole("ADMIN");
+		customerCommand = new CommandInvoker(session);
 		
 	}
 	
@@ -66,14 +69,23 @@ public class Customer extends AbstractView{
 	
 	//Customer browses the product
 	public int browseProduct() {
-			
-			customerCommand.sendCCommand("browse");
-			return 0;
+		try{
+			session = customerCommand.sendCCommand("browse");
+		}
+		catch (Exception ex) {
+			System.out.println("Error Occured!!");
+		}
+		return 0;
 	}
 	
 	//display customers shopping cart
 	public int shoppingCart() {
-		customerCommand.sendCCommand("shoppingCart");
+		try {
+			session = customerCommand.sendCCommand("shoppingCart");
+		}
+		catch (Exception ex) {
+			System.out.println("Error Occured!!");
+		}
 		return 0;
 	}
 

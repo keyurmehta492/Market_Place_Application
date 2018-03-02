@@ -8,11 +8,12 @@ Other Java files are:
 view = Administrator.java, Customer.java, User.java
 clientController = FrontController.java, Dispatcher.java
 rmi = RmiClient.java, RmiServer.java
-interfaces = IAdminController.java, ICustomerController.java, IUserController.java, ICommand.java
+interfaces = IAdminController.java, ICustomerController.java, IUserController.java, ICommand.java, RequiresRole
 serverController = AdminController.java, CustomerController.java, UserController.java
-model = AdminModel.java, CustomerModel.java, UserModel.java, CommandInvoker.java
-command = CommandAdd.java, CommandBrowse.java, CommandCBrowse.java, CommandCShoppingCart.java, CommandDelete.java, CommandUpdate.java
-abstractFactory = AbstractFact.java, ConcreteAdminFact.java, ConcreteCustFact.java, FactoryDecider.java
+model = AdminModel.java, CustomerModel.java, UserModel.java
+command = CommandAdd.java, CommandBrowse.java, CommandCBrowse.java, CommandCShoppingCart.java, CommandDelete.java, CommandUpdate.java, CommandInvoker.java
+abstractFactory = AbstractFact.java, AbstractView.java, ConcreteAdminFact.java, ConcreteCustFact.java
+server= AuthorizationException.java, AuthorizationInvocationHandler.java, Session.java
 
 makefile will compile all the java files and create respective class files
 
@@ -44,9 +45,9 @@ Below are the steps to execute the application:
 Credentials:
 Once client starts, it will have 2 options:
 1. Login: currently credentials are hard-coded in the server which are as follows:
-				Username	Password
+			Username	Password
 admin user		admin		admin
-Customer User	john		john123
+Customer User		john		john123
 
 Based on the selected type of user, different options (view) will be displayed. And further if those options are selected, server will prompt respective message showing working of rmi communication between client and server. 
  

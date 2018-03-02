@@ -6,12 +6,18 @@
 
 package interfaces;
 
+import server.Session;
+
 public interface ICustomerController extends java.rmi.Remote{
 	
+	//User defined annotation is placed to check user has CUSTOMER role or not to access these operations.
+	
 	//customers browses the products
-	int custBrowseProd() throws java.rmi.RemoteException;
+	@RequiresRole("CUSTOMER")
+	Session custBrowseProd(Session session) throws java.rmi.RemoteException;
 	
 	//customers shopping cart
-	int custShoppingCart() throws java.rmi.RemoteException;
+	@RequiresRole("CUSTOMER")
+	Session custShoppingCart(Session session) throws java.rmi.RemoteException;
 	
-}
+}//interface ICustomerController
