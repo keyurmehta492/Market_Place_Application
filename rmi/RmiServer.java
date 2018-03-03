@@ -28,26 +28,30 @@ public class RmiServer {
 	ICustomerController CustController;
 	IAdminController adminController;
 
+	Class<IUserController> user = IUserController.class;
+	Class<ICustomerController> customer = ICustomerController.class;
+	Class<IAdminController> admin = IAdminController.class;
+	
 	public RmiServer() {
 		try {
 			//Proxy pattern to check the user related operation
-			UserController = (IUserController) Proxy.newProxyInstance(IUserController.class.getClassLoader(),
-	                new Class<?>[] {IUserController.class},
+			UserController = (IUserController) Proxy.newProxyInstance(user.getClassLoader(),
+	                new Class<?>[] {user},
 	                new AuthorizationInvocationHandler(new UserController()));
 			
 			//Proxy pattern to check the role of the user is related to customer operations or not
-			CustController = (ICustomerController) Proxy.newProxyInstance(ICustomerController.class.getClassLoader(),
-	                new Class<?>[] {ICustomerController.class},
+			CustController = (ICustomerController) Proxy.newProxyInstance(customer.getClassLoader(),
+	                new Class<?>[] {customer},
 	                new AuthorizationInvocationHandler(new CustomerController()));
 			
 			//Proxy pattern to check the role of the user is related to admin operations or not
-			adminController = (IAdminController) Proxy.newProxyInstance(IAdminController.class.getClassLoader(),
-	                new Class<?>[] {IAdminController.class},
+			adminController = (IAdminController) Proxy.newProxyInstance(admin.getClassLoader(),
+	                new Class<?>[] {admin},
 	                new AuthorizationInvocationHandler(new AdminController()));
 		
 		} catch (RemoteException e) {
 
-			//e.printStackTrace();
+			e.printStackTrace();
 		}
 		
 	}//RmiServer
