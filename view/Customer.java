@@ -11,6 +11,7 @@ import java.util.Scanner;
 
 import abstractFactory.AbstractView;
 import command.CommandInvoker;
+import server.AuthorizationException;
 import server.Session;
 
 
@@ -34,7 +35,7 @@ public class Customer extends AbstractView{
 		
 		this.username= session.getUserName();
 		this.session = session;
-		this.session.setUserRole("ADMIN");
+		
 		customerCommand = new CommandInvoker(session);
 		
 	}
@@ -69,11 +70,11 @@ public class Customer extends AbstractView{
 	
 	//Customer browses the product
 	public int browseProduct() {
-		try{
+		try {
 			session = customerCommand.sendCCommand("browse");
 		}
-		catch (Exception ex) {
-			System.out.println("Error Occured!!");
+		catch (AuthorizationException ex) {
+			System.out.println(ex.getMessage());
 		}
 		return 0;
 	}
@@ -83,8 +84,8 @@ public class Customer extends AbstractView{
 		try {
 			session = customerCommand.sendCCommand("shoppingCart");
 		}
-		catch (Exception ex) {
-			System.out.println("Error Occured!!");
+		catch (AuthorizationException ex) {
+			System.out.println(ex.getMessage());
 		}
 		return 0;
 	}
