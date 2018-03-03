@@ -10,6 +10,7 @@ import java.util.Scanner;
 
 import abstractFactory.AbstractView;
 import command.CommandInvoker;
+import server.AuthorizationException;
 import server.Session;
 
 
@@ -36,7 +37,7 @@ public class Administrator extends AbstractView{
 	public Administrator(Session session) {
 		this.username= session.getUserName();
 		this.session = session;
-		//this.session.setUserRole("CUSTOMER");
+		
 		try {
 			admincommand = new CommandInvoker(session);
 			
@@ -80,27 +81,47 @@ public class Administrator extends AbstractView{
 	
 	//for Admin to browse the product
 	public int browseProduct() {
-			
+		try {
 			session = admincommand.sendACommand("browse");
-			
+		}
+		catch (AuthorizationException ex) {
+			System.out.println(ex.getMessage());
+		}
 		return 0;
 	}
 	
 	//for Admin to add the product
 	public int addProduct() {
-		session = admincommand.sendACommand("add");
+		try {
+			session = admincommand.sendACommand("add");
+		}
+		catch (AuthorizationException ex) {
+			System.out.println(ex.getMessage());
+		}
+		
 		return 0;
 	}
 	
 	//for Admin to update the product
 	public int updateProduct() {
+		try {
 		session = admincommand.sendACommand("update");
+		}
+		catch (AuthorizationException ex) {
+			System.out.println(ex.getMessage());
+		}
 		return 0;
 	}
 	
 	//for Admin to delete the product
 	public int deleteProduct() {
-		session = admincommand.sendACommand("delete");
+		try {
+			session = admincommand.sendACommand("delete");
+		}
+		catch (AuthorizationException ex) {
+			System.out.println(ex.getMessage());
+		}
+		
 		return 0;
 	}
 
