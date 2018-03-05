@@ -74,7 +74,7 @@ public class RmiServer {
 		} 
 		
 		catch (Exception ex) {
-			//ex.printStackTrace();
+			ex.printStackTrace();
 		}	
 
 	} //serverBind

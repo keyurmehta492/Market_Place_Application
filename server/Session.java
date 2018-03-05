@@ -11,6 +11,10 @@ import java.io.Serializable;
 
 public class Session implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3747056833221799300L;
 	private String userName = null;
 	private String userRole = null;
 	private int isAuth = 0;

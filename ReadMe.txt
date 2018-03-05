@@ -1,4 +1,4 @@
-Assignment 2: Keyur Kirti Mehta
+Assignment 3: Keyur Kirti Mehta
 
 Main class are as follows:
 server = MarketPlaceServer.java
@@ -50,5 +50,8 @@ admin user		admin		admin
 Customer User		john		john123
 
 Based on the selected type of user, different options (view) will be displayed. And further if those options are selected, server will prompt respective message showing working of rmi communication between client and server. 
+Before accessing this operation, user role is checked and if role is mismatched then user will be prompted with unauthorized access message.
+(As admin and customer has different views and controller, it won't show any authorized access error. But functionality with the message was captured in screenshot and mentioned in report)
  
-2. Register: Though this has not been implemented yet.
+
+2. Register: This has not been implemented yet.

@@ -25,7 +25,7 @@ public class Dispatcher {
 				if(session.getUserRole().equals("ADMIN")){
 					System.out.println("Administrator Login Successful");
 					
-					//Create concreate class object to display the admin view
+					//Create concrete class object to display the admin view
 					AbstractFact fact = new ConcreteAdminFact();
 					fact.createView(session);
 				}
@@ -34,7 +34,7 @@ public class Dispatcher {
 				else if(session.getUserRole().equals("CUSTOMER")){
 					System.out.println("Customer Login Successful");
 					
-					//Create concreate class object to display the customer view
+					//Create concrete class object to display the customer view
 					AbstractFact fact = new ConcreteCustFact();
 					fact.createView(session);
 				}

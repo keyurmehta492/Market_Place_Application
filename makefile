@@ -38,7 +38,7 @@ command/CommandUpdate.java\
 abstractFactory/AbstractFact.java\
 abstractFactory/ConcreteAdminFact.java\
 abstractFactory/ConcreteCustFact.java\
-abstractFactory/FactoryDecider.java\
+abstractFactory/AbstractView.java\
 
 default: classes
 

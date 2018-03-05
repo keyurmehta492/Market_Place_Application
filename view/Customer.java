@@ -32,10 +32,9 @@ public class Customer extends AbstractView{
 	Scanner input = new Scanner(System.in);
 	
 	public Customer(Session session) {
-		
-		this.username= session.getUserName();
 		this.session = session;
-		
+		this.username= session.getUserName();
+				
 		customerCommand = new CommandInvoker(session);
 		
 	}
@@ -74,6 +73,7 @@ public class Customer extends AbstractView{
 			session = customerCommand.sendCCommand("browse");
 		}
 		catch (AuthorizationException ex) {
+			//catch user define exception in case of user role is not authorized to access this operation
 			System.out.println(ex.getMessage());
 		}
 		return 0;
@@ -85,6 +85,7 @@ public class Customer extends AbstractView{
 			session = customerCommand.sendCCommand("shoppingCart");
 		}
 		catch (AuthorizationException ex) {
+			//catch user define exception in case of user role is not authorized to access this operation
 			System.out.println(ex.getMessage());
 		}
 		return 0;

@@ -15,6 +15,10 @@ import server.Session;
 
 public class AdminController extends UnicastRemoteObject  implements IAdminController{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3876315941071232912L;
 	AdminModel am;
 	
 	public AdminController() throws RemoteException {
@@ -32,12 +36,8 @@ public class AdminController extends UnicastRemoteObject  implements IAdminContr
 	//for Admin to add the product
 	@Override
 	public Session adminAddProd(Session session) throws RemoteException {
-		try {
-			session = am.adminAdd(session);
-		}
-		catch (Exception e) {
-			
-		}
+	
+		session = am.adminAdd(session);
 		return session;
 	}
 
