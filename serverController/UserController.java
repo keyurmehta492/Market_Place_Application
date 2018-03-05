@@ -18,6 +18,10 @@ import server.Session;
 
 public class UserController extends UnicastRemoteObject  implements IUserController{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5574948114609459375L;
 	UserModel lg;
 	Session session = null;
 	
@@ -30,7 +34,7 @@ public class UserController extends UnicastRemoteObject  implements IUserControl
 	int result;
 
 	
-	//method to check user credentials and assigne the user role
+	//method to check user credentials and assign the user role
 	@Override
 	public synchronized Session userCheck(String username, String password) throws RemoteException {
 				

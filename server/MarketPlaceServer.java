@@ -13,6 +13,11 @@ import rmi.RmiServer;
 
 public class MarketPlaceServer extends UnicastRemoteObject {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6129123102400112354L;
+
 	protected MarketPlaceServer() throws RemoteException {
 		
 	}

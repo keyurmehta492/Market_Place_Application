@@ -15,6 +15,10 @@ import server.Session;
 
 public class CustomerController extends UnicastRemoteObject  implements ICustomerController{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -235014651067973605L;
 	CustomerModel cm;
 	public CustomerController() throws RemoteException {
 		super();

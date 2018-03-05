@@ -16,6 +16,10 @@ import interfaces.RequiresRole;
 
 public class AuthorizationInvocationHandler implements InvocationHandler, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5116188650598444603L;
 	private Object objectImpl;
 
 	public AuthorizationInvocationHandler(Object impl) {
@@ -31,10 +35,10 @@ public class AuthorizationInvocationHandler implements InvocationHandler, Serial
 			RequiresRole requirerole = method.getAnnotation(RequiresRole.class);
 			Session session = (Session) args[0];
 			
-			//System.out.println(session.getUserRole() +RequiresRole.class + method.getAnnotation(RequiresRole.class) );
-			
+					
 			//Check if user has specific role to access the method
 			if (session.getUser().getUserRole().equals(requirerole.value())) {
+				
 				return method.invoke(objectImpl, args);
 			} 
 			
@@ -47,6 +51,7 @@ public class AuthorizationInvocationHandler implements InvocationHandler, Serial
 		
 		//If role is not specified on operation (annotation is not present), then invoke a method
 		else {
+			System.out.println("Sepcific role not required. Allowing Access!!");
 			return method.invoke(objectImpl, args);
 		}
 		

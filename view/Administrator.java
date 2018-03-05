@@ -85,6 +85,7 @@ public class Administrator extends AbstractView{
 			session = admincommand.sendACommand("browse");
 		}
 		catch (AuthorizationException ex) {
+			//catch user define exception in case of user role is not authorized to access this operation
 			System.out.println(ex.getMessage());
 		}
 		return 0;
@@ -96,6 +97,7 @@ public class Administrator extends AbstractView{
 			session = admincommand.sendACommand("add");
 		}
 		catch (AuthorizationException ex) {
+			//catch user define exception in case of user role is not authorized to access this operation
 			System.out.println(ex.getMessage());
 		}
 		
@@ -108,6 +110,7 @@ public class Administrator extends AbstractView{
 		session = admincommand.sendACommand("update");
 		}
 		catch (AuthorizationException ex) {
+			//catch user define exception in case of user role is not authorized to access this operation
 			System.out.println(ex.getMessage());
 		}
 		return 0;
@@ -119,6 +122,7 @@ public class Administrator extends AbstractView{
 			session = admincommand.sendACommand("delete");
 		}
 		catch (AuthorizationException ex) {
+			//catch user define exception in case of user role is not authorized to access this operation
 			System.out.println(ex.getMessage());
 		}
 		
