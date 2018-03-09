@@ -17,6 +17,8 @@ public class UserModel {
 		session = new Session();
 	}
 	
+	// Ryan: Should you be checking Strings or the Session?
+	
 	//Check user credentials are valid and set user role based on the authentication
 	public Session checkAuthentication(String username, String password) {
 
