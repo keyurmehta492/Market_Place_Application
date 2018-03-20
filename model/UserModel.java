@@ -18,6 +18,10 @@ public class UserModel {
 	}
 	
 	// Ryan: Should you be checking Strings or the Session?
+	// FIXED: As per my design, I have to check the strings, as my session is created only after the user is authenticated. 
+	//        And once user is authenticated on server side, it will create session object of the user which will have user role in it.
+	//        And then this session is returned to client.
+	
 	
 	//Check user credentials are valid and set user role based on the authentication
 	public Session checkAuthentication(String username, String password) {
