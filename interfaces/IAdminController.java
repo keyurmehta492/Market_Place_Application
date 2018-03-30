@@ -6,7 +6,10 @@
 
 package interfaces;
 
+import java.util.List;
+
 import server.Session;
+import server.itemList;
 
 public interface IAdminController extends java.rmi.Remote{
 
@@ -14,18 +17,18 @@ public interface IAdminController extends java.rmi.Remote{
 	
 	//for Admin to browse the product
 	@RequiresRole("ADMIN")
-	Session adminBrowseProd(Session session) throws java.rmi.RemoteException;
+	List<itemList> adminBrowseProd(Session session) throws java.rmi.RemoteException;
 	
 	//for Admin to add the product
 	@RequiresRole("ADMIN")
-	Session adminAddProd(Session session) throws java.rmi.RemoteException;
+	List<itemList> adminAddProd(Session session,String info) throws java.rmi.RemoteException;
 	
 	//for Admin to update the product
 	@RequiresRole("ADMIN")
-	Session adminUpdateProd(Session session) throws java.rmi.RemoteException;
+	List<itemList> adminUpdateProd(Session session,String info) throws java.rmi.RemoteException;
 
 	//for Admin to delete the product
 	@RequiresRole("ADMIN")
-	Session adminDeleteProd(Session session) throws java.rmi.RemoteException;
+	List<itemList> adminDeleteProd(Session session,String info) throws java.rmi.RemoteException;
 
 } //interface IAdminController

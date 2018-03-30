@@ -20,9 +20,9 @@ import serverController.UserController;;
 
 public class RmiServer {
 
-	String user_name = "//tesla.cs.iupui.edu:2010/userController";
-	String cust_name = "//tesla.cs.iupui.edu:2010/customerController";
-	String admin_name = "//tesla.cs.iupui.edu:2010/adminController";
+	String user_name = "//in-csci-rrpc01.cs.iupui.edu:2011/userController";
+	String cust_name = "//in-csci-rrpc01.cs.iupui.edu:2011/customerController";
+	String admin_name = "//in-csci-rrpc01.cs.iupui.edu:2011/adminController";
 
 	IUserController UserController;
 	ICustomerController CustController;

@@ -6,12 +6,15 @@
 
 package view;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import abstractFactory.AbstractView;
 import command.CommandInvoker;
 import server.AuthorizationException;
 import server.Session;
+import server.itemList;
 
 
 // Ryan: Is this a View? If so it is in violation of the so separate
@@ -26,10 +29,13 @@ public class Administrator extends AbstractView{
 	private int opt;
 	Session session = null;
 	
-	
+	List<itemList> items = new ArrayList<itemList>();
 	CommandInvoker admincommand;
 	Scanner input = new Scanner(System.in);
-
+	int pid,pQuantity;
+	String pName, pDes, pType,opt2,info;
+	Double pPrize;
+	
 	Administrator() {
 		
 	}
@@ -82,7 +88,20 @@ public class Administrator extends AbstractView{
 	//for Admin to browse the product
 	public int browseProduct() {
 		try {
-			session = admincommand.sendACommand("browse");
+			items = admincommand.sendACommand("browse","0");
+			
+			System.out.println("***********The Product List***********");
+			System.out.println("ItemID\tName\t\tDescription\t\tType\t\tPrize\tQuantity available");
+			System.out.println("=================================================================================");
+			
+			for (itemList value : items) {
+				 if(value.getItemID() != 0) {
+					 System.out.printf("%-6d\t%-15s\t%-20s\t%-15s\t%-6.2f\t%-3d\n"
+							 ,value.getItemID(),value.getItemName(),value.getItemDesc()
+							 ,value.getItemType(),value.getItemPrize(),value.getItemQuantity()); 
+				 }  
+		    }
+			System.out.println("=================================================================================");
 		}
 		catch (AuthorizationException ex) {
 			//catch user define exception in case of user role is not authorized to access this operation
@@ -94,7 +113,40 @@ public class Administrator extends AbstractView{
 	//for Admin to add the product
 	public int addProduct() {
 		try {
-			session = admincommand.sendACommand("add");
+			System.out.println("***********Add Product to Product List***********");
+			System.out.println("Enter product ID: ");
+			pid = input.nextInt();
+			input.nextLine();
+			System.out.println("Enter name of the product: ");
+			pName = input.nextLine();
+			System.out.println("Enter Description of the product: ");
+			pDes = input.nextLine();
+			System.out.println("Enter Type of the product: ");
+			pType = input.nextLine();
+			System.out.println("Enter quantity of the product: ");
+			pQuantity = input.nextInt();
+			input.nextLine();
+			System.out.println("Enter prize of the product: ");
+			pPrize = input.nextDouble();
+			
+			System.out.println("Details of the new product:");
+			System.out.printf("%-6d\t%-15s\t%-20s\t%-15s\t%-6.2f\t%-3d\n"
+					 ,pid,pName,pDes,pType,pPrize,pQuantity);
+			System.out.println("Kindly confirm, all information is correct and ADD product to the productList (Y/N)?");
+			opt2 = input.next();
+			if (opt2.equalsIgnoreCase("Y")) {
+				info = pid +","+pName+","+pDes+","+pType+","+pQuantity+","+pPrize;
+				items = admincommand.sendACommand("add",info);		
+				if(items.get(0).getMessage().equals("1"))
+					System.out.println("New Product is added to the Product List!!");
+				else if(items.get(0).getMessage().equals("0"))
+					System.out.println("New Product can NOT be added to the Product List as same Product ID is present in the list!!");
+			}
+	
+			else
+				System.out.println("New product is not added to the productList.");
+			
+			
 		}
 		catch (AuthorizationException ex) {
 			//catch user define exception in case of user role is not authorized to access this operation
@@ -107,7 +159,7 @@ public class Administrator extends AbstractView{
 	//for Admin to update the product
 	public int updateProduct() {
 		try {
-		session = admincommand.sendACommand("update");
+			items = admincommand.sendACommand("update","0");
 		}
 		catch (AuthorizationException ex) {
 			//catch user define exception in case of user role is not authorized to access this operation
@@ -119,7 +171,7 @@ public class Administrator extends AbstractView{
 	//for Admin to delete the product
 	public int deleteProduct() {
 		try {
-			session = admincommand.sendACommand("delete");
+			items = admincommand.sendACommand("delete","0");
 		}
 		catch (AuthorizationException ex) {
 			//catch user define exception in case of user role is not authorized to access this operation

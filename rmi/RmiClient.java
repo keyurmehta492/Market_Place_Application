@@ -8,17 +8,20 @@ package rmi;
 
 import java.rmi.Naming;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.List;
 
 import interfaces.IAdminController;
 import interfaces.ICustomerController;
 import interfaces.IUserController;
 import server.Session;
+import server.itemList;
 
 public class RmiClient {
 
-	String userStr = "//tesla.cs.iupui.edu:2010/userController";
-	String adminStr = "//tesla.cs.iupui.edu:2010/adminController";
-	String custStr = "//tesla.cs.iupui.edu:2010/customerController";
+	String userStr = "//in-csci-rrpc01.cs.iupui.edu:2011/userController";
+	String adminStr = "//in-csci-rrpc01.cs.iupui.edu:2011/adminController";
+	String custStr = "//in-csci-rrpc01.cs.iupui.edu:2011/customerController";
 	int userType;
 	
 	
@@ -26,6 +29,7 @@ public class RmiClient {
 	IAdminController adminController;
 	ICustomerController custController;
 	Session session = null;
+	List<itemList> items = new ArrayList<itemList>() ;
 	
 	public RmiClient() {
 		try {
@@ -54,29 +58,29 @@ public class RmiClient {
 	}//sendRequest
 	
 	//send admin commands  to perform the operation related to Admin user
-	public Session sendAdminRequest(String command, Session session) {
+	public List<itemList> sendAdminRequest(String command, Session session, String info) {
 		
 		try {
 			switch(command) {
 			
 			//send request to browse product for admin user
 			case "browse":
-				session = adminController.adminBrowseProd(session);
+				items = adminController.adminBrowseProd(session);
 				break;
 			
 			//send request to add product for admin user
 			case "add":
-				session = adminController.adminAddProd(session);
+				items = adminController.adminAddProd(session,info);
 				break;
 			
 			//send request to update product for admin user
 			case "update":
-				session = adminController.adminUpdateProd(session);
+				items = adminController.adminUpdateProd(session,info);
 				break;
 			
 			//send request to delete product for admin user
 			case "delete":
-				session = adminController.adminDeleteProd(session);
+				items = adminController.adminDeleteProd(session,info);
 				break;
 			
 			}//switch
@@ -86,33 +90,38 @@ public class RmiClient {
 			e.printStackTrace();
 		}
 		
-		return session;
+		return items;
 	} //sendAdminRequest
 	
 	//send customer commands  to perform the operation related to Customer user
-	public Session sendCustomerRequest(String command, Session session) {
+	public List<itemList> sendCustomerRequest(String command, Session session, String info) {
 		
 		try {
 			switch(command) {
 		
 			//send request to browse product for customer user
 			case "browse":
-				session = custController.custBrowseProd(session);
+				items = custController.custBrowseProd(session);
 				break;
 		
 			//send request to check shopping cart for customer user
 			case "shoppingCart":
-				session = custController.custShoppingCart(session);
+				items = custController.custShoppingCart(session,info);
+				break;
+			
+			//send request to purchase product for customer user
+			case "purchaseProduct":
+				items = custController.custPurchaseProd(session,info);
 				break;
 			
 			}// switch
 		
-		} catch (RemoteException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		return session;
+		return items;
 	}//sendCustomerRequest
 	
 } //class RmiClient
