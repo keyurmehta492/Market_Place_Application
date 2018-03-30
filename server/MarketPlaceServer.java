@@ -8,6 +8,8 @@ package server;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
+import java.util.List;
 
 import rmi.RmiServer;
 
@@ -22,6 +24,8 @@ public class MarketPlaceServer extends UnicastRemoteObject {
 		
 	}
 
+	
+	
 	public static void main(String[] args) {
 		// RMI Security Manager
 		System.setSecurityManager(new SecurityManager());
@@ -30,7 +34,9 @@ public class MarketPlaceServer extends UnicastRemoteObject {
 		//initialize RMI service
 		RmiServer rmi = new RmiServer();
 		rmi.serverBind();
+		
 			
+		
 	} //main
 
 	

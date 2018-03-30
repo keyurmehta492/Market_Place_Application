@@ -10,6 +10,7 @@ client/Client.java\
 server/AuthorizationInvocationHandler.java\
 server/AuthorizationException.java\
 server/Session.java\
+server/itemList.java\
 view/Administrator.java\
 view/Customer.java\
 view/User.java\
@@ -33,6 +34,7 @@ command/CommandAdd.java\
 command/CommandBrowse.java\
 command/CommandCBrowse.java\
 command/CommandCShoppingCart.java\
+command/CommandCPurchaseProd.java\
 command/CommandDelete.java\
 command/CommandUpdate.java\
 abstractFactory/AbstractFact.java\

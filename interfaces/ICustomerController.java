@@ -6,7 +6,10 @@
 
 package interfaces;
 
+import java.util.List;
+
 import server.Session;
+import server.itemList;
 
 public interface ICustomerController extends java.rmi.Remote{
 	
@@ -14,10 +17,14 @@ public interface ICustomerController extends java.rmi.Remote{
 	
 	//customers browses the products
 	@RequiresRole("CUSTOMER")
-	Session custBrowseProd(Session session) throws java.rmi.RemoteException;
+	List<itemList> custBrowseProd(Session session) throws java.rmi.RemoteException;
 	
 	//customers shopping cart
 	@RequiresRole("CUSTOMER")
-	Session custShoppingCart(Session session) throws java.rmi.RemoteException;
+	List<itemList> custShoppingCart(Session session, String info) throws java.rmi.RemoteException;
+	
+	//customers purchase product
+	@RequiresRole("CUSTOMER")
+	List<itemList> custPurchaseProd(Session session, String info) throws java.rmi.RemoteException;
 	
 }//interface ICustomerController

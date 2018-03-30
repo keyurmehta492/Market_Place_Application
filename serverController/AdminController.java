@@ -8,10 +8,13 @@ package serverController;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
+import java.util.List;
 
 import interfaces.IAdminController;
 import model.AdminModel;
 import server.Session;
+import server.itemList;
 
 public class AdminController extends UnicastRemoteObject  implements IAdminController{
 
@@ -20,6 +23,7 @@ public class AdminController extends UnicastRemoteObject  implements IAdminContr
 	 */
 	private static final long serialVersionUID = -3876315941071232912L;
 	AdminModel am;
+	List<itemList> items = new ArrayList<itemList>() ;
 	
 	public AdminController() throws RemoteException {
 		super();
@@ -28,31 +32,31 @@ public class AdminController extends UnicastRemoteObject  implements IAdminContr
 
 	//for Admin to browse the product
 	@Override
-	public Session adminBrowseProd(Session session) throws RemoteException {
-		session = am.adminBrowse(session);
-		return session;
+	public List<itemList> adminBrowseProd(Session session) throws RemoteException {
+		items = am.adminBrowse(session);
+		return items;
 	}
 
 	//for Admin to add the product
 	@Override
-	public Session adminAddProd(Session session) throws RemoteException {
+	public List<itemList> adminAddProd(Session session,String info) throws RemoteException {
 	
-		session = am.adminAdd(session);
-		return session;
+		items = am.adminAdd(session,info);
+		return items;
 	}
 
 	//for Admin to update the product
 	@Override
-	public Session adminUpdateProd(Session session) throws RemoteException {
-		session = am.adminUpdate(session);
-		return session;
+	public List<itemList> adminUpdateProd(Session session, String info) throws RemoteException {
+		items = am.adminUpdate(session);
+		return items;
 	}
 
 	//for Admin to delete the product
 	@Override
-	public Session adminDeleteProd(Session session) throws RemoteException {
-		session = am.adminDelete(session);
-		return session;
+	public List<itemList> adminDeleteProd(Session session, String info) throws RemoteException {
+		items = am.adminDelete(session);
+		return items;
 	}
 
 }// class AdminController

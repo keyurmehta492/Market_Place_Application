@@ -6,11 +6,14 @@
 
 package interfaces;
 
+import java.util.List;
+
 import server.Session;
+import server.itemList;
 
 public interface ICommand {
 	
 	//Command interface method to execute the commands
-	public Session execute();
+	public List<itemList> execute(String info);
 		
 } //interface ICommand
