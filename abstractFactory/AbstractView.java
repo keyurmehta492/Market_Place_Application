@@ -10,4 +10,4 @@ public abstract class AbstractView {
 
 	//Abstract method which will create views based on the role
 		public abstract void displayView();
-}//AbstractView
+}//class AbstractView

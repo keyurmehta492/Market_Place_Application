@@ -8,7 +8,6 @@ package interfaces;
 
 import java.util.List;
 
-import server.Session;
 import server.itemList;
 
 public interface ICommand {

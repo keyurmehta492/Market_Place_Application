@@ -22,6 +22,6 @@ public class ConcreteCustFact extends AbstractFact {
 		cust = new Customer(session);
 		cust.displayView();
 		
-	}
+	}//createView
 
-} //ConcreteCustFact
+} // class ConcreteCustFact

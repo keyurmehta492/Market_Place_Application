@@ -24,7 +24,7 @@ public class ConcreteAdminFact extends AbstractFact{
 		admin = new Administrator(session);
 		admin.displayView();
 		
-	}
+	}//createView
 
 	
-}//ConcreteAdminFact
+}// class ConcreteAdminFact

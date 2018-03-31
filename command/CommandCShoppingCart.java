@@ -26,7 +26,7 @@ public class CommandCShoppingCart implements ICommand{
 	}
 	@Override
 	public List<itemList> execute(String info) {
-		//Execute shoppingcart command for Customer user to add a product to shopping cart
+		//Execute shopping cart command for Customer user to add a product to shopping cart
 		items = rmi.sendCustomerRequest("shoppingCart", session,info);
 		return items;
 	}//execute

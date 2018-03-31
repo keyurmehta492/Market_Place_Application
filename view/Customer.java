@@ -83,6 +83,7 @@ public class Customer extends AbstractView{
 			System.out.println("ItemID\tName\t\tDescription\t\tType\t\tPrize\tQuantity available");
 			System.out.println("=================================================================================");
 			
+			//Display available product details with proper format
 			for (itemList value : items) {
 				 if(value.getItemID() != 0 && value.getItemQuantity() != 0) {
 					 System.out.printf("%-6d\t%-15s\t%-20s\t%-15s\t%-6.2f\t%-3d\n"
@@ -98,30 +99,46 @@ public class Customer extends AbstractView{
 		}
 					
 		return 0;
-	}
+	}//browseProduct
 	
 	//Add product to the shopping cart
 	public int shoppingCart() {
 		try {
 			System.out.println("***********Add Product to Shopping Cart***********");
+			
+			//get the details from user to add product to the shopping cart
 			System.out.println("Enter product ID: ");
 			pid = input.nextInt();
 			System.out.println("Enter quantity of product: ");
 			pquantity = input.nextInt();
 			
 			items = customerCommand.sendCCommand("shoppingCart",pid+","+pquantity);
+			
+			//if product quantity is greater than the available quantity 
 			if(items.get(0).getMessage().equals("0"))
 				System.out.println("Quantity ordered for product id: " + pid + " is greater than the available Quantity!\n"
 						+ "Kindly recheck the quantity!!");
+			
+			//product is added to the shopping cart
 			else if(items.get(0).getMessage().equals("1")) {
 				System.out.println("Product Added to the Shopping cart!!");
 				
+				//ask user if want to purchase a product
 				System.out.println("\n\nDo you want to purchase the added product (Y/N) ?");
 				opt2 = input.next();
+				
+				//if user gives confirmation to purchase the product 
 				if (opt2.equalsIgnoreCase("Y"))
 					purchaseCart(pid,pquantity);
+				
+				//if user decline to purchase the product
 				else
 					System.out.println("Product removed from cart! Returning to main menu.");
+			}
+			
+			//invalid product id is entered by the user
+			else if(items.get(0).getMessage().equals("-1")) {
+				System.out.println("Invalid product ID!! Kindly check the product ID again.");
 			}
 				
 			
@@ -134,12 +151,17 @@ public class Customer extends AbstractView{
 		return 0;
 	}//shoppingCart
 
+	//user wants to purchase the product added in the shopping cart
 	public void purchaseCart(int pid, int pquantity) {
 		
 		items = customerCommand.sendCCommand("purchaseProduct",pid+","+pquantity);
+		
+		//product can not be purchased as the available quantity is less than the requested quantity
 		if(items.get(0).getMessage().equals("0"))
 			System.out.println("Quantity ordered for product id: " + pid + " is greater than the available Quantity!\n"
 					+ "Kindly recheck the quantity!!");
+		
+		//product is purchased successfully.
 		else if(items.get(0).getMessage().equals("1")) 
 			System.out.println("\nOrder Placed!! Product will be delivered to your door step!!");
 		
