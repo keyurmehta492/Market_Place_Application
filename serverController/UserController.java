@@ -36,7 +36,7 @@ public class UserController extends UnicastRemoteObject  implements IUserControl
 	
 	//method to check user credentials and assign the user role
 	@Override
-	public synchronized Session userCheck(String username, String password) throws RemoteException {
+	public Session userCheck(String username, String password) throws RemoteException {
 				
 		session = lg.checkAuthentication(username, password);
 		
@@ -45,7 +45,7 @@ public class UserController extends UnicastRemoteObject  implements IUserControl
 
 	//to register new user
 	@Override
-	public synchronized int userRegister() throws RemoteException {
+	public int userRegister() throws RemoteException {
 		
 		result = lg.register();
 		

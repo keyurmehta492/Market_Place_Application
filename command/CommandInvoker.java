@@ -69,7 +69,6 @@ public class CommandInvoker {
 											
 				CommandCShoppingCart shopping = new CommandCShoppingCart(session);
 				items = shopping.execute(info);
-				
 				break;
 			
 			//invoke the purchase command for customer user
@@ -77,7 +76,6 @@ public class CommandInvoker {
 				
 				CommandCPurchaseProd  purchaseProd= new CommandCPurchaseProd(session);
 				items = purchaseProd.execute(info);
-				
 				break;
 		}//switchcase
 		
@@ -85,4 +83,4 @@ public class CommandInvoker {
 	} //sendCCommand
 
 	
-} //commandInvoker
+} //class commandInvoker

@@ -94,6 +94,7 @@ public class Administrator extends AbstractView{
 			System.out.println("ItemID\tName\t\tDescription\t\tType\t\tPrize\tQuantity available");
 			System.out.println("=================================================================================");
 			
+			//Display all the product details with proper format
 			for (itemList value : items) {
 				 if(value.getItemID() != 0) {
 					 System.out.printf("%-6d\t%-15s\t%-20s\t%-15s\t%-6.2f\t%-3d\n"
@@ -113,6 +114,8 @@ public class Administrator extends AbstractView{
 	//for Admin to add the product
 	public int addProduct() {
 		try {
+			
+			//get the details from admin about new product
 			System.out.println("***********Add Product to Product List***********");
 			System.out.println("Enter product ID: ");
 			pid = input.nextInt();
@@ -132,17 +135,24 @@ public class Administrator extends AbstractView{
 			System.out.println("Details of the new product:");
 			System.out.printf("%-6d\t%-15s\t%-20s\t%-15s\t%-6.2f\t%-3d\n"
 					 ,pid,pName,pDes,pType,pPrize,pQuantity);
+			
+			//get confirmation from admin to add the product to the product list
 			System.out.println("Kindly confirm, all information is correct and ADD product to the productList (Y/N)?");
 			opt2 = input.next();
+			
+			//if admin gives confirmation to add the product
 			if (opt2.equalsIgnoreCase("Y")) {
 				info = pid +","+pName+","+pDes+","+pType+","+pQuantity+","+pPrize;
-				items = admincommand.sendACommand("add",info);		
+				items = admincommand.sendACommand("add",info);	
+				
+				//if product added to the list
 				if(items.get(0).getMessage().equals("1"))
 					System.out.println("New Product is added to the Product List!!");
+				//if product is not added to the list
 				else if(items.get(0).getMessage().equals("0"))
 					System.out.println("New Product can NOT be added to the Product List as same Product ID is present in the list!!");
 			}
-	
+			//if admin decline to  add the product
 			else
 				System.out.println("New product is not added to the productList.");
 			
@@ -154,7 +164,7 @@ public class Administrator extends AbstractView{
 		}
 		
 		return 0;
-	}
+	}//addProduct
 	
 	//for Admin to update the product
 	public int updateProduct() {
@@ -166,7 +176,7 @@ public class Administrator extends AbstractView{
 			System.out.println(ex.getMessage());
 		}
 		return 0;
-	}
+	}//updateProduct
 	
 	//for Admin to delete the product
 	public int deleteProduct() {
@@ -179,6 +189,6 @@ public class Administrator extends AbstractView{
 		}
 		
 		return 0;
-	}
+	}//deleteProduct
 
 } // class Administrator

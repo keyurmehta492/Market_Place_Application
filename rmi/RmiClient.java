@@ -19,6 +19,7 @@ import server.itemList;
 
 public class RmiClient {
 
+	//Server string at rpc01 machine
 	String userStr = "//in-csci-rrpc01.cs.iupui.edu:2011/userController";
 	String adminStr = "//in-csci-rrpc01.cs.iupui.edu:2011/adminController";
 	String custStr = "//in-csci-rrpc01.cs.iupui.edu:2011/customerController";

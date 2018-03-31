@@ -24,7 +24,7 @@ public class UserModel {
 	
 	
 	//Check user credentials are valid and set user role based on the authentication
-	public Session checkAuthentication(String username, String password) {
+	public synchronized Session checkAuthentication(String username, String password) {
 
 		System.out.println("User "+ username + " attempts for login!!" );
 		
@@ -63,7 +63,7 @@ public class UserModel {
 	} //checkAuthentication
 	
 	//to register new user
-	public int register() {
+	public synchronized int register() {
 		System.out.println("New User wants to register!!");
 		return 0;
 	} //register

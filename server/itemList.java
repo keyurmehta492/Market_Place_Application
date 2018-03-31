@@ -11,6 +11,11 @@ import java.io.Serializable;
 public class itemList implements Serializable {
 
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4821499269799817456L;
+	
 	int itemID;
 	String itemName;
 	String itemDesc;
