@@ -25,9 +25,9 @@ Below are the steps to execute the application:
 	d. Click open
 	e. Enter valid credentials
 
-1. Run the registry on port 2011
+1. Run the registry on port 2012
 	a. Open the console as mentioned in 0 and execute the below command
-	b. rmiregistry 2011&
+	b. rmiregistry 2012&
 
 2. Open a console and execute below commands to run the server:
 	a. cd %FilePath%

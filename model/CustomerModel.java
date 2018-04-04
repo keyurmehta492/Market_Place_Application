@@ -96,7 +96,7 @@ public class CustomerModel {
 						//Separate the product details in different variables
 						prod_details = fdata.split(",");
 						
-						//Check if product is available in the productlist file
+						//Check if product is available in the product list file
 						if(Integer.parseInt(purchase[0]) == Integer.parseInt(prod_details[0])) {
 							
 							//check if the available quantity of the product is greater than then user entered quantity
