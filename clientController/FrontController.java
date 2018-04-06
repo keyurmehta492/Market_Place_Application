@@ -14,6 +14,7 @@ import server.Session;
 
 public class FrontController {
 
+	// Ryan: Should these have scope associated with them?
 	String username, password;
 		
 	Session session = null;
