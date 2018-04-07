@@ -14,7 +14,7 @@ import view.Administrator;
 //FIXED: Included the useful comments in all files.
 
 public class ConcreteAdminFact extends AbstractFact{
-
+	// Ryan: Should this have a scope associated with it?
 	Administrator admin;
 
 	//Create an object of administrator view and display the admin view

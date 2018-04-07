@@ -14,6 +14,7 @@ import view.Customer;
 
 public class ConcreteCustFact extends AbstractFact {
 
+	// Ryan: Should this have a scope associated with it?
 	Customer cust;
 
 	//Create an object of customer view and display the customer view
