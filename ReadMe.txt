@@ -1,4 +1,4 @@
-Assignment 3: Keyur Kirti Mehta
+Assignment 5: Keyur Kirti Mehta
 
 Main class are as follows:
 server = MarketPlaceServer.java
@@ -8,31 +8,31 @@ Other Java files are:
 view = Administrator.java, Customer.java, User.java
 clientController = FrontController.java, Dispatcher.java
 rmi = RmiClient.java, RmiServer.java
-interfaces = IAdminController.java, ICustomerController.java, IUserController.java, ICommand.java, RequiresRole
+interfaces = IAdminController.java, ICustomerController.java, IUserController.java, ICommand.java, RequiresRole.java
 serverController = AdminController.java, CustomerController.java, UserController.java
-model = AdminModel.java, CustomerModel.java, UserModel.java
-command = CommandAdd.java, CommandBrowse.java, CommandCBrowse.java, CommandCPurchaseProd.java, CommandCShoppingCart.java, CommandDelete.java, CommandUpdate.java, CommandInvoker.java
+model = AdminModel.java, CustomerModel.java, UserModel.java, executeDatabase.java
+command = CommandAdd.java,CommandAddAdmin.java, CommandAddCustomer.java, CommandBrowse.java, CommandCBrowse.java, CommandCPurchaseProd.java, CommandCShoppingCart.java, CommandCViewShoppingCart.java,CommandDelete.java, CommandUpdate.java,CommandRemoveCustomer.java, CommandInvoker.java
 abstractFactory = AbstractFact.java, AbstractView.java, ConcreteAdminFact.java, ConcreteCustFact.java
-server= AuthorizationException.java, AuthorizationInvocationHandler.java, Session.java, itemList.java
+server= AuthorizationException.java, AuthorizationInvocationHandler.java, Session.java, itemList.java, DatabaseConnection.java
 
 makefile will compile all the java files and create respective class files
 
 Below are the steps to execute the application:
-0. Login to in-csci-rrpc01.cs.iupui.edu as my server is on this machine
+0. Login to in-csci-rrpc01.cs.iupui.edu as my server and database is on this machine
 	a. Open putty
 	b. enter host name: in-csci-rrpc01.cs.iupui.edu
 	c. port: 22
 	d. Click open
 	e. Enter valid credentials
 
-1. Run the registry on port 2012
+1. Run the registry on port 2089
 	a. Open the console as mentioned in 0 and execute the below command
-	b. rmiregistry 2012&
+	b. rmiregistry 2089&
 
 2. Open a console and execute below commands to run the server:
 	a. cd %FilePath%
 	b. make
-	c. java -Djava.security.policy=policy server.MarketPlaceServer
+	c. java -cp ".:mysql-connector.jar" -Djava.security.policy=policy server.MarketPlaceServer
 
 3. Open a new console and execute below commands to run client:
    Client can be run on any of the below mentioned 5 machines concurrently:
@@ -55,6 +55,7 @@ Once client starts, it will have 2 options:
 				Username	Password
 admin user		admin		admin
 Customer User	john		john123
+				keyur		keyur
 
 Based on the selected type of user, different options (view) will be displayed. And further if those options are selected, server will prompt respective message showing working of rmi communication between client and server. 
 Before accessing this operation, user role is checked and if role is mismatched then user will be prompted with unauthorized access message.

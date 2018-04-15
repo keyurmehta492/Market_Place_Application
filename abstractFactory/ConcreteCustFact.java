@@ -15,14 +15,15 @@ import view.Customer;
 public class ConcreteCustFact extends AbstractFact {
 
 	// Ryan: Should this have a scope associated with it?
-	Customer cust;
+	// FIXED: Added the scope for member variables and instance variables.
+	private Customer cust;
 
-	//Create an object of customer view and display the customer view
+	// Create an object of customer view and display the customer view
 	@Override
 	public void createView(Session session) {
 		cust = new Customer(session);
 		cust.displayView();
-		
-	}//createView
+
+	}// createView
 
 } // class ConcreteCustFact

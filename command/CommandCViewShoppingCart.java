@@ -13,23 +13,23 @@ import rmi.RmiClient;
 import server.Session;
 import server.itemList;
 
-public class CommandCPurchaseProd implements ICommand {
-
+public class CommandCViewShoppingCart implements ICommand {
 	private RmiClient rmi;
 	private Session session = null;
 	private List<itemList> items;
 
-	CommandCPurchaseProd(Session session) {
+	CommandCViewShoppingCart(Session session) {
 		rmi = new RmiClient();
 		this.session = session;
 	}
 
 	@Override
 	public List<itemList> execute(String info) {
-		// Execute purchase product command for Customer user to purchase the product
-		items = rmi.sendCustomerRequest("purchaseProduct", session, info);
+		// Execute shopping cart command for Customer user to add a product to
+		// shopping cart
+		items = rmi.sendCustomerRequest("viewShoppingCart", session, info);
 		
 		return items;
 	}// execute
-
-}// class CommandCPurchaseProd
+	
+}// class CommandCViewShoppingCart

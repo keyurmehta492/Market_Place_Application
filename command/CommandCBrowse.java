@@ -6,7 +6,6 @@
 
 package command;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import interfaces.ICommand;
@@ -14,20 +13,22 @@ import rmi.RmiClient;
 import server.Session;
 import server.itemList;
 
-public class CommandCBrowse implements ICommand{
+public class CommandCBrowse implements ICommand {
 
-	RmiClient rmi;
-	Session session = null;
-	List<itemList> items = new ArrayList<itemList>() ;
-	
+	private RmiClient rmi;
+	private Session session = null;
+	private List<itemList> items;
+
 	CommandCBrowse(Session session) {
-		 rmi = new RmiClient();
-		 this.session = session;
+		rmi = new RmiClient();
+		this.session = session;
 	}
+
 	@Override
 	public List<itemList> execute(String info) {
-		//Execute browse command for Customer user to browse the product
-		items = rmi.sendCustomerRequest("browse", session,info);
+		// Execute browse command for Customer user to browse the product
+		items = rmi.sendCustomerRequest("browse", session, info);
+		
 		return items;
 	} // execute
 

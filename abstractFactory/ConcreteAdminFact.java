@@ -9,22 +9,21 @@ package abstractFactory;
 import server.Session;
 import view.Administrator;
 
-
 // Ryan: Always include useful comments in every file.
 //FIXED: Included the useful comments in all files.
 
-public class ConcreteAdminFact extends AbstractFact{
+public class ConcreteAdminFact extends AbstractFact {
 	// Ryan: Should this have a scope associated with it?
-	Administrator admin;
+	// FIXED: Added the scope for member variables and instance variables.
+	private Administrator admin;
 
-	//Create an object of administrator view and display the admin view
+	// Create an object of administrator view and display the admin view
 	@Override
 	public void createView(Session session) {
-		
+
 		admin = new Administrator(session);
 		admin.displayView();
-		
-	}//createView
 
-	
+	}// createView
+
 }// class ConcreteAdminFact

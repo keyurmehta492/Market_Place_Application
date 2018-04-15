@@ -11,24 +11,37 @@ import java.util.List;
 import server.Session;
 import server.itemList;
 
-public interface IAdminController extends java.rmi.Remote{
+public interface IAdminController extends java.rmi.Remote {
 
-	//User defined annotation is placed to check user has ADMIN role or not to access these operations.
-	
-	//for Admin to browse the product
+	// User defined annotation is placed to check user has ADMIN role or not to
+	// access these operations.
+
+	// for Admin to browse the product
 	@RequiresRole("ADMIN")
 	List<itemList> adminBrowseProd(Session session) throws java.rmi.RemoteException;
-	
-	//for Admin to add the product
-	@RequiresRole("ADMIN")
-	List<itemList> adminAddProd(Session session,String info) throws java.rmi.RemoteException;
-	
-	//for Admin to update the product
-	@RequiresRole("ADMIN")
-	List<itemList> adminUpdateProd(Session session,String info) throws java.rmi.RemoteException;
 
-	//for Admin to delete the product
+	// for Admin to add the product
 	@RequiresRole("ADMIN")
-	List<itemList> adminDeleteProd(Session session,String info) throws java.rmi.RemoteException;
+	List<itemList> adminAddProd(Session session, String info) throws java.rmi.RemoteException;
 
-} //interface IAdminController
+	// for Admin to update the product
+	@RequiresRole("ADMIN")
+	List<itemList> adminUpdateProd(Session session, String info) throws java.rmi.RemoteException;
+
+	// for Admin to delete the product
+	@RequiresRole("ADMIN")
+	List<itemList> adminDeleteProd(Session session, String info) throws java.rmi.RemoteException;
+
+	// for Admin to add an Admin
+	@RequiresRole("ADMIN")
+	List<itemList> adminAddAdmin(Session session, String info) throws java.rmi.RemoteException;
+
+	// for Admin to add a customer
+	@RequiresRole("ADMIN")
+	List<itemList> adminAddCustomer(Session session, String info) throws java.rmi.RemoteException;
+
+	// for Admin to remove a customer
+	@RequiresRole("ADMIN")
+	List<itemList> adminRemoveCustomer(Session session, String info) throws java.rmi.RemoteException;
+
+} // interface IAdminController
