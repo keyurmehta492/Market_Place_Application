@@ -6,7 +6,6 @@
 
 package command;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import interfaces.ICommand;
@@ -16,19 +15,21 @@ import server.itemList;
 
 public class CommandDelete implements ICommand {
 
-	RmiClient rmi;
-	Session session = null;
-	List<itemList> items = new ArrayList<itemList>() ;
-	
+	private RmiClient rmi;
+	private Session session = null;
+	private List<itemList> items;
+
 	CommandDelete(Session session) {
-		 rmi = new RmiClient();
-		 this.session = session;
+		rmi = new RmiClient();
+		this.session = session;
 	}
+
 	@Override
 	public List<itemList> execute(String info) {
-		//Execute delete command for Admin user to delete the product
-		items = rmi.sendAdminRequest("delete",session,info);
-			return items;
-	}//execute
+		// Execute delete command for Admin user to delete the product
+		items = rmi.sendAdminRequest("delete", session, info);
+		
+		return items;
+	}// execute
 
-}//class CommandDelete
+}// class CommandDelete

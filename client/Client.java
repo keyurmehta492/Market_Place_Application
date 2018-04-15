@@ -11,22 +11,20 @@ import view.User;
 
 public class Client {
 
-	//Entry point in Market place application
+	// Entry point in Market place application
 	public static void main(String[] args) {
-		
-		
+
 		System.out.println("Market Place application is starting...");
-		
+
 		// RMI Security Manager
 		System.setSecurityManager(new SecurityManager());
-		
+
 		FrontController fc = new FrontController();
-		
-		//calling user view
+
+		// calling user view
 		User user = new User(fc);
 		user.userView();
-		
-		
-	} //main
+
+	} // main
 
 } // class Client

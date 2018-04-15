@@ -8,7 +8,6 @@ package serverController;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.ArrayList;
 import java.util.List;
 
 import interfaces.ICustomerController;
@@ -16,42 +15,49 @@ import model.CustomerModel;
 import server.Session;
 import server.itemList;
 
-public class CustomerController extends UnicastRemoteObject  implements ICustomerController{
+public class CustomerController extends UnicastRemoteObject implements ICustomerController {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -235014651067973605L;
-	CustomerModel cm;
-	List<itemList> items = new ArrayList<itemList>() ;
-	
+	private CustomerModel cm;
+	private List<itemList> items;
+
 	public CustomerController() throws RemoteException {
 		super();
 		cm = new CustomerModel();
 	}
 
 	@Override
-	//customers browses the products
+	// customers browses the products
 	public List<itemList> custBrowseProd(Session session) throws RemoteException {
-	
-			items = cm.custBrowse(session);
-	
+
+		items = cm.custBrowse(session);
 		return items;
 	}
 
 	@Override
-	//customers shopping cart
+	// customers shopping cart
 	public List<itemList> custShoppingCart(Session session, String info) throws RemoteException {
-		
+
 		items = cm.custShopping(session, info);
 		return items;
 	}
 
-	//Customer purchase product 
+	// Customer purchase product
 	@Override
 	public List<itemList> custPurchaseProd(Session session, String info) throws RemoteException {
-		items = cm.custPurchase(session,info);
+		items = cm.custPurchase(session, info);
 		return items;
 	}
-	
+
+	// Customer view shopping cart
+	@Override
+	public List<itemList> custViewShoppingCart(Session session, String info) throws RemoteException {
+		items = cm.custViewShoppingCart(session, info);
+		return items;
+
+	}
+
 } // class CustomerController

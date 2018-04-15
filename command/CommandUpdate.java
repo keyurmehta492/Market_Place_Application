@@ -6,7 +6,6 @@
 
 package command;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import interfaces.ICommand;
@@ -16,19 +15,22 @@ import server.itemList;
 
 public class CommandUpdate implements ICommand {
 
-	RmiClient rmi;
-	Session session = null;
-	List<itemList> items = new ArrayList<itemList>() ;
-	
+	private RmiClient rmi;
+	private Session session = null;
+	private List<itemList> items;
+
 	CommandUpdate(Session session) {
-		 rmi = new RmiClient();
-		 this.session = session;
+		rmi = new RmiClient();
+		this.session = session;
 	}
+
 	@Override
 	public List<itemList> execute(String info) {
-		//Execute update command for Admin user to update the product information
-			items = rmi.sendAdminRequest("update",session,info);
-			return items;
+		// Execute update command for Admin user to update the product
+		// information
+		items = rmi.sendAdminRequest("update", session, info);
+		
+		return items;
 	}// execute
 
 } // class CommandUpdate
