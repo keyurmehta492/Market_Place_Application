@@ -64,7 +64,7 @@ public class AdminModel {
 	}// adminBrowse
 
 	// for Admin user to add the product
-	public synchronized List<itemList> adminAdd(Session session, String info) {
+	public List<itemList> adminAdd(Session session, String info) {
 		System.out.println("Admin wants to add the products!!");
 		items = new ArrayList<itemList>();
 

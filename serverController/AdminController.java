@@ -58,7 +58,7 @@ public class AdminController extends UnicastRemoteObject implements IAdminContro
 		return items;
 	}
 
-	// for Admin to add new adminstrator
+	// for Admin to add new administrator
 	@Override
 	public List<itemList> adminAddAdmin(Session session, String info) throws RemoteException {
 
@@ -66,12 +66,14 @@ public class AdminController extends UnicastRemoteObject implements IAdminContro
 		return items;
 	}
 
+	// for Admin to add new Customer
 	@Override
 	public List<itemList> adminAddCustomer(Session session, String info) throws RemoteException {
 		items = am.adminAddCustomer(session, info);
 		return items;
 	}
-
+	
+	// for Admin to remove Customer
 	@Override
 	public List<itemList> adminRemoveCustomer(Session session, String info) throws RemoteException {
 		items = am.adminRemoveCustomer(session, info);

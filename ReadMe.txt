@@ -51,7 +51,7 @@ Below are the steps to execute the application:
 	
 Credentials:
 Once client starts, it will have 2 options:
-1. Login: currently credentials are hard-coded in the server which are as follows:
+1. Login: Below are some standard user credentails. But as per functionality new users can also be created.
 				Username	Password
 admin user		admin		admin
 Customer User	john		john123
@@ -61,14 +61,32 @@ Based on the selected type of user, different options (view) will be displayed. 
 Before accessing this operation, user role is checked and if role is mismatched then user will be prompted with unauthorized access message.
 (As admin and customer has different views and controller, it won't show any authorized access error. But functionality with the message was captured in screenshot and mentioned in report)
  
-2. Register: This has not been implemented yet.
+2. Register: New customer can register itself. User needs to enter all the mentioned fields and if the username entered is available, then new customer is registered to the system.
+			Then he needs to login again in order to access the system.
 
 
 Admin functionalities:
-1. Browse Product: Admin user can view all the product with its details along with product whose quantity is 0
+1. Browse Product: Admin user can view all the product with its details. Admin will get to see the products whose quantity is 0 as well.
 2. Add Product: Admin can add new product to the product list. It will check if the product id is repeated or not. Same product id can not be entered twice.
+				Admin needs to enter all the require fields in order to add the product.
+3. Update product: Admin needs to enter the product id. Then he can choose which details needs to be updated (Description, price, Quantity). Based on the selection and new details
+				if product id is present, then the detail will be updated. 
+4. Remove product: Admin needs to enter the product id. If product id is present, then the product is deleted from the product list.
+				Or else user will be prompted with message.
+5. Add Administrator: Admin will add the details of the new administrator, and if username is available then new admin will be created.
+				Or else user will be prompted with message. 				
+6. Add Customer: Admin will add the details of the new customer, and if username is available then new customer will be created.
+				Or else user will be prompted with message.
+7. Remove Customer:  Admin will add the username of the customer whose account needs to be deleted, and if username is present then customer will be removed. 
+				Or else user will be prompted with message.
+
 
 Customer functionalities:
 1. Browse Product: Customer user can view all the available product with its details. Customer can only see products whose quantity greater than 0.
 2. Add product to shopping cart: Customer user can add product to the shopping cart. If the requested quantity is less than or equal to available quantity than can add product to shopping cart. Or else user will be prompted with message.
-3. Purchase the product: Once product is added to the cart, user will be asked to purchase it. If confirmation given then product quantity is again checked and if valid then product is purchased and respective quantity is subtracted from the list.
+				If customer tries to enter same product twice then it will added only once, with the latest ordered quantity. Customer can add multiple products in his cart.
+3. View shopping cart and Purchase the product: User can view his entire shopping cart. If shopping cart contains any product, then customer will get option to purchase.
+				Once customer gives confirmation to purchase, each product in the cart will check again for quantity. Product with valid product will be purchased. and if quantity ordered is more than available, product will remain in the cart and order detail will give details about it.
+				Customer can then change the quantity from option 2.
+		
+		
