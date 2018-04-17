@@ -99,24 +99,22 @@ public class CommandInvoker {
 
 		// invoke the shopping cart command for Customer user
 		case "shoppingCart":
-
 			CommandCShoppingCart shopping = new CommandCShoppingCart(session);
 			items = shopping.execute(info);
 			break;
 
 		// invoke the shopping cart command for Customer user
 		case "viewShoppingCart":
-
 			CommandCViewShoppingCart viewShopping = new CommandCViewShoppingCart(session);
 			items = viewShopping.execute(info);
 			break;
 
 		// invoke the purchase command for customer user
 		case "purchaseProduct":
-
 			CommandCPurchaseProd purchaseProd = new CommandCPurchaseProd(session);
 			items = purchaseProd.execute(info);
 			break;
+			
 		}// switchcase
 
 		return items;

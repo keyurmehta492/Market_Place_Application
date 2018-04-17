@@ -59,9 +59,9 @@ public class executeDatabase {
 	// check if user credentails are correct or not
 	public ResultSet getUser(String username, String password) {
 
-		query = "SELECT userid,name,usertype,address FROM user Where username = '" + username.toLowerCase()
-				+ "' And password = '" + password + "'";
-
+		query = "SELECT userid,name,usertype,address FROM user WHERE username = '" + username.toLowerCase()
+				+ "' AND password = '" + password + "'";
+		
 		rs = execute(query);
 
 		return rs;
@@ -70,7 +70,7 @@ public class executeDatabase {
 	// check if username is available or not
 	public ResultSet checkUser(String username) {
 
-		query = "SELECT userid FROM user Where username = '" + username.toLowerCase() + "'";
+		query = "SELECT userid FROM user WHERE username = '" + username.toLowerCase() + "'";
 		rs = execute(query);
 
 		return rs;
@@ -81,9 +81,11 @@ public class executeDatabase {
 
 		query = "INSERT INTO user(name,username,password,usertype,address) VALUES(\"" + name + "\",\""
 				+ username.toLowerCase() + "\",\"" + password + "\"," + usertype + ",\"" + address + "\")";
-
-		result = executeUpdate(query);
-
+		
+		synchronized(this) {
+			result = executeUpdate(query);
+		}
+		
 		return result;
 	}// createUser
 
@@ -95,8 +97,10 @@ public class executeDatabase {
 		else if (usertype == 0)
 			query = "SELECT * FROM product";
 
-		rs = execute(query);
-
+		synchronized(this) {
+			rs = execute(query);
+		}
+		
 		return rs;
 
 	}// getAllProducts
@@ -107,17 +111,22 @@ public class executeDatabase {
 		query = "INSERT INTO product(productid,name,description,type,prize,quantity_available) VALUES(" + productid
 				+ ",\"" + name + "\",\"" + description + "\",\"" + type + "\"," + prize + "," + quantity + ")";
 
-		result = executeUpdate(query);
-
+		synchronized(this) {
+			result = executeUpdate(query);
+		}
+		
 		return result;
 	}// addProduct
 
 	// get product quantity for the desired product id
 	public ResultSet checkProduct(int productid) {
 
-		query = "SELECT productid,quantity_available FROM product Where productid = " + productid;
-		rs = execute(query);
-
+		query = "SELECT productid,quantity_available FROM product WHERE productid = " + productid;
+		
+		synchronized(this) {
+			rs = execute(query);
+		}
+		
 		return rs;
 	}// checkProduct
 
@@ -125,25 +134,31 @@ public class executeDatabase {
 	public int deleteProduct(int productid) {
 
 		query = "DELETE FROM product WHERE productid = " + productid;
-		result = executeUpdate(query);
-
+		
+		synchronized(this) {
+			result = executeUpdate(query);
+		}
+		
 		return result;
 	}// deleteProduct
 
 	// update the product details
 	public int updateProduct(int productid, int update_detail, String info) {
 
-		if (update_detail == 1) {
-			query = "UPDATE product SET description = \"" + info + "\" WHERE productid = " + productid;
-		} else if (update_detail == 2) {
-			query = "UPDATE product SET prize = " + Double.parseDouble(info) + " WHERE productid = " + productid;
-		} else if (update_detail == 3) {
-			query = "UPDATE product SET quantity_available = " + Integer.parseInt(info) + " WHERE productid = "
-					+ productid;
+		
+			if (update_detail == 1) {
+				query = "UPDATE product SET description = \"" + info + "\" WHERE productid = " + productid;
+			} else if (update_detail == 2) {
+				query = "UPDATE product SET prize = " + Double.parseDouble(info) + " WHERE productid = " + productid;
+			} else if (update_detail == 3) {
+				query = "UPDATE product SET quantity_available = " + Integer.parseInt(info) + " WHERE productid = "
+						+ productid;
+			}
+			
+		synchronized(this) {
+			result = executeUpdate(query);
 		}
-
-		result = executeUpdate(query);
-
+		
 		return result;
 	}// updateProduct
 
@@ -151,8 +166,11 @@ public class executeDatabase {
 	public int deleteCustomer(int userid) {
 
 		query = "DELETE FROM user WHERE userid = " + userid;
-		result = executeUpdate(query);
-
+		
+		synchronized(this) {
+			result = executeUpdate(query);
+		}
+		
 		return result;
 	}// deleteCustomer
 
@@ -162,8 +180,10 @@ public class executeDatabase {
 				+ productid + "," + quantity + "," + quantity + "*prize , 0 FROM product WHERE productid = "
 				+ productid;
 
-		result = executeUpdate(query);
-
+		synchronized(this) {
+			result = executeUpdate(query);
+		}
+		
 		return result;
 	}// addProductCart
 
@@ -185,8 +205,11 @@ public class executeDatabase {
 				+ " ) B SET A.quantityorder = " + quantity + ", A.amount = B.prize * " + quantity
 				+ " WHERE A.productid = B.productid AND A.productid = " + productid + " AND A.userid = " + userid
 				+ " AND A.ispurchased = 0";
-		result = executeUpdate(query);
-
+		
+		synchronized(this) {
+			result = executeUpdate(query);
+		}
+		
 		return result;
 	}// updateProductCart
 
@@ -205,8 +228,11 @@ public class executeDatabase {
 
 		query = "UPDATE product SET quantity_available = quantity_available - " + quantity + " WHERE productid = "
 				+ productid;
-		result = executeUpdate(query);
-
+		
+		synchronized(this) {
+			result = executeUpdate(query);
+		}
+		
 		return result;
 	}// purchaseProduct
 
@@ -214,8 +240,11 @@ public class executeDatabase {
 	public int insertPurchase(int shid) {
 
 		query = "UPDATE shoppingcart SET ispurchased = 1 WHERE shid = " + shid;
-		result = executeUpdate(query);
-
+		
+		synchronized(this) {
+			result = executeUpdate(query);
+		}
+		
 		return result;
 	}// insertPurchase
 

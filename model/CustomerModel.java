@@ -66,7 +66,7 @@ public class CustomerModel {
 	}// custBrowse
 
 	// customer user to shopping cart
-	public synchronized List<itemList> custShopping(Session session, String info) {
+	public List<itemList> custShopping(Session session, String info) {
 		System.out.println("Customer wants to add the product to his shopping cart!!");
 		items = new ArrayList<itemList>();
 		userid = session.getUserid();
@@ -199,7 +199,7 @@ public class CustomerModel {
 	}// custShopping
 
 	// customer user to purchase product from cart
-	public synchronized List<itemList> custPurchase(Session session, String info) {
+	public List<itemList> custPurchase(Session session, String info) {
 		System.out.println("Customer wants to Purchase the product(s) from his shopping cart!!");
 		items = new ArrayList<itemList>();
 		purchaseOrder = new ArrayList<String>();

@@ -1,5 +1,0 @@
-1,T-shirt,Men's T-shirt,Clothes,5,35
-2,Jeans,Men's Jeans,Clothes,7,60
-3,Watch,Men's Watch,Accessories,5,105
-4,Nike Shoes,Men's Sport shoes,Accessories,8,85
-5,iPad,Tablet,Electronic,10,150

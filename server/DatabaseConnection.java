@@ -12,14 +12,14 @@ import java.sql.SQLException;
 
 public class DatabaseConnection {
 
-	public static Connection conn = null;
+	private static Connection conn = null;
 
 	// Db connection credential
-	public static String hostname = "localhost:3306";
-	public static String dbName = "mehtake_db";
-	public static String url = "jdbc:mysql://" + hostname + "/" + dbName;
-	public static String username = "mehtake";
-	public static String password = "oodp507";
+	private static String hostname = "localhost:3306";
+	private static String dbName = "mehtake_db";
+	private static String url = "jdbc:mysql://" + hostname + "/" + dbName;
+	private static String username = "mehtake";
+	private static String password = "oodp507";
 
 	public static Connection getconnection() {
 

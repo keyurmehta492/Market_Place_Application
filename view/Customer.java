@@ -47,7 +47,7 @@ public class Customer extends AbstractView {
 	public void displayView() {
 		// Customer view
 		do {
-			System.out.println("\n*****Welcome " + username + " to MarketPlace *****");
+			System.out.println("\n*****Welcome " + this.username + " to MarketPlace *****");
 			System.out.println("\nEnter the option from below: ");
 			System.out.println("1. Browse for Products");
 			System.out.println("2. Add product to Shopping cart");
@@ -204,7 +204,8 @@ public class Customer extends AbstractView {
 		for (int counter = 1; counter < items.size(); counter++) {
 			System.out.println(items.get(counter).getMessage());
 		}
-
+		System.out.println("===========================================================");
+		
 	} // purchaseCart
 
 } // class Customer

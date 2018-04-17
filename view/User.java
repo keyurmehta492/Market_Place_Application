@@ -24,7 +24,7 @@ public class User {
 	// Now, request from view is forwarded to front controller and then to
 	// RMIClient.
 
-	FrontController fc;
+	private FrontController fc;
 
 	public User(FrontController fc) {
 		this.fc = fc;

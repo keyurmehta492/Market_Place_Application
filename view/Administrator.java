@@ -424,7 +424,7 @@ public class Administrator extends AbstractView {
 		user_name = input.nextLine();
 
 		// get confirmation from admin to delete the product to the product list
-		System.out.println("Kindly confirm, Do you want to permanently delete the customer user: " + username
+		System.out.println("Kindly confirm, Do you want to permanently delete the customer user: " + user_name
 				+ " from user list (Y/N)?");
 		opt2 = input.next();
 
