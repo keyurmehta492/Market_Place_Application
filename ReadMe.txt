@@ -51,18 +51,20 @@ Below are the steps to execute the application:
 	
 Credentials:
 Once client starts, it will have 2 options:
-1. Login: Below are some standard user credentails. But as per functionality new users can also be created.
+1. Login: Below are some standard user credentials. But as per functionality new users can also be created.
 				Username	Password
 admin user		admin		admin
+				emily		emily
 Customer User	john		john123
 				keyur		keyur
+				robert		robert
 
 Based on the selected type of user, different options (view) will be displayed. And further if those options are selected, server will prompt respective message showing working of rmi communication between client and server. 
 Before accessing this operation, user role is checked and if role is mismatched then user will be prompted with unauthorized access message.
 (As admin and customer has different views and controller, it won't show any authorized access error. But functionality with the message was captured in screenshot and mentioned in report)
  
 2. Register: New customer can register itself. User needs to enter all the mentioned fields and if the username entered is available, then new customer is registered to the system.
-			Then he needs to login again in order to access the system.
+			Then he needs to login again in order to access the system. If username is not available then user will be prompted with the message.
 
 
 Admin functionalities:
@@ -83,10 +85,10 @@ Admin functionalities:
 
 Customer functionalities:
 1. Browse Product: Customer user can view all the available product with its details. Customer can only see products whose quantity greater than 0.
-2. Add product to shopping cart: Customer user can add product to the shopping cart. If the requested quantity is less than or equal to available quantity than can add product to shopping cart. Or else user will be prompted with message.
-				If customer tries to enter same product twice then it will added only once, with the latest ordered quantity. Customer can add multiple products in his cart.
+2. Add product to shopping cart: Customer user can add product to the shopping cart. If the requested quantity is less than or equal to available quantity than can add product to shopping cart or else user will be prompted with message.
+				If customer tries to enter same product twice (when it is not purchased) then it will get added only once, with the latest ordered quantity. Customer can add multiple products in his cart.
 3. View shopping cart and Purchase the product: User can view his entire shopping cart. If shopping cart contains any product, then customer will get option to purchase.
-				Once customer gives confirmation to purchase, each product in the cart will check again for quantity. Product with valid product will be purchased. and if quantity ordered is more than available, product will remain in the cart and order detail will give details about it.
-				Customer can then change the quantity from option 2.
+				Once customer gives confirmation to purchase, each product in the cart will check again for quantity. Product with valid product will be purchased. and if quantity ordered is more than available, 
+				product will remain in the cart and order detail will give details about it. Customer can then change the quantity from option 2.
 		
 		

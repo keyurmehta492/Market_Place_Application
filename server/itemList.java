@@ -82,7 +82,7 @@ public class itemList implements Serializable {
 		return itemQuantity;
 	}
 
-	// get the itemPize for the product
+	// get the itemPice for the product
 	public Double getItemPrize() {
 		return itemPrize;
 	}

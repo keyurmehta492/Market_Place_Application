@@ -26,7 +26,7 @@ public class Customer extends AbstractView {
 	private String username;
 	private int opt;
 	private String opt2;
-	int pid, pquantity;
+	private int pid, pquantity;
 
 	private CommandInvoker customerCommand;
 	private Session session = null;

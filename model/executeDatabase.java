@@ -28,7 +28,7 @@ public class executeDatabase {
 			// execute the select query
 			rs = stmt.executeQuery(query);
 
-			// stmt.close();
+			 
 		} catch (SQLException e) {
 			System.err.println("Query can not be executed!!");
 			e.printStackTrace();
@@ -46,7 +46,7 @@ public class executeDatabase {
 			// execute the insert,update,delete query
 			result = stmt.executeUpdate(query);
 
-			// stmt.close();
+			 
 		} catch (SQLException e) {
 			System.err.println("Update Query can not be executed!!");
 			e.printStackTrace();
@@ -165,7 +165,7 @@ public class executeDatabase {
 	// delete the customer from the user list
 	public int deleteCustomer(int userid) {
 
-		query = "DELETE FROM user WHERE userid = " + userid;
+		query = "DELETE FROM user WHERE userid = " + userid + " AND usertype = 0";
 		
 		synchronized(this) {
 			result = executeUpdate(query);
