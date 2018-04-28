@@ -34,7 +34,7 @@ public class User {
 	public void userView() {
 
 		input = new Scanner(System.in);
-		int val;
+		String val;
 
 		// User view
 
@@ -46,19 +46,26 @@ public class User {
 			System.out.println("3. Exit");
 			System.out.println("Please enter your choice: ");
 
-			val = input.nextInt();
-			input.nextLine();
+			val = input.nextLine();
+
 			switch (val) {
-			case 1:
+			case "1":
 				login();
 				break;
 
-			case 2:
+			case "2":
 				register();
 				break;
+
+			case "3":
+				System.exit(0);
+				
+			default:
+				System.out.println("Enter valid option!!");
+
 			}// switch
 
-		} while (val != 3);
+		} while (!val.equals("3"));
 
 	} // userView
 
@@ -101,17 +108,17 @@ public class User {
 		result = fc.signUp(name, username, password, cf_password, address);
 
 		// If all details are not entered
-		if (result == 0) 
+		if (result == 0)
 			System.out.println("Please enter all the fields properly!!");
-		
+
 		// if new user can not register as username is already occupied
-		else if (result == -1) 
+		else if (result == -1)
 			System.out.println("Username already present. Please use another username!!");
-		
+
 		// if new user can not register as password did not match
-		else if (result == -2) 
+		else if (result == -2)
 			System.out.println("Password did not match. Please enter details again!!");
-		
+
 		// if new user can registered successfully
 		else if (result == 1) {
 			System.out.println("User: " + name + " is registered successfully!!");

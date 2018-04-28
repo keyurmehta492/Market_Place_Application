@@ -6,6 +6,7 @@
 
 package view;
 
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -24,7 +25,8 @@ import server.itemList;
 public class Administrator extends AbstractView {
 
 	private String name, username, password, address;
-	private int opt, opt3;
+	private String opt;
+	private int opt3;
 	private Session session = null;
 
 	private List<itemList> items;
@@ -67,33 +69,45 @@ public class Administrator extends AbstractView {
 			System.out.println("8. Log out");
 			System.out.println("Please enter your choice: ");
 
-			opt = input.nextInt();
-			input.nextLine();
+			opt = input.nextLine();
+
 			switch (opt) {
-			case 1:
+			case "1":
 				browseProduct();
 				break;
-			case 2:
+				
+			case "2":
 				addProduct();
 				break;
-			case 3:
+				
+			case "3":
 				updateProduct();
 				break;
-			case 4:
+				
+			case "4":
 				deleteProduct();
 				break;
-			case 5:
+				
+			case "5":
 				addAdmin();
 				break;
-			case 6:
+				
+			case "6":
 				addCustomer();
 				break;
-			case 7:
+				
+			case "7":
 				removeCustomer();
 				break;
+				
+			case "8":
+				break;
+
+			default:
+				System.out.println("Enter valid option!!");
 			}// switch
 
-		} while (opt != 8);
+		} while (!opt.equals("8"));
 
 		System.out.println("Thank you for using MarketPlace Application!!");
 
@@ -152,7 +166,7 @@ public class Administrator extends AbstractView {
 			// get confirmation from admin to add the product to the product
 			// list
 			System.out.println("Kindly confirm, all information is correct and ADD product to the productList (Y/N)?");
-			opt2 = input.next();
+			opt2 = input.nextLine();
 
 			// if admin gives confirmation to add the product
 			if (opt2.equalsIgnoreCase("Y")) {
@@ -186,6 +200,10 @@ public class Administrator extends AbstractView {
 			// catch user define exception in case of user role is not
 			// authorized to access this operation
 			System.out.println(ex.getMessage());
+		} catch (InputMismatchException e) {
+			// If input is not integer than raise exception
+			input.nextLine();
+			System.err.println("Entered value is not an integer");
 		}
 
 		return 0;
@@ -193,74 +211,132 @@ public class Administrator extends AbstractView {
 
 	// for Admin to update the product
 	public int updateProduct() {
+		try {
+			System.out.println("***********Update Product Details from Product List***********");
+			// Get the product id which needs to be updated
+			System.out.print("Enter product ID: ");
+			pid = input.nextInt();
+			input.nextLine();
 
-		System.out.println("***********Update Product Details from Product List***********");
-		// Get the product id which needs to be updated
-		System.out.print("Enter product ID: ");
-		pid = input.nextInt();
-		input.nextLine();
+			// Get what detail of the product needs to be updated
+			System.out.println("\nEnter which detail of the product: " + pid + " wants to update:");
+			System.out.println("1. Description \t 2. Price \t 3. Quanitity");
+			opt3 = input.nextInt();
+			input.nextLine();
 
-		// Get what detail of the product needs to be updated
-		System.out.println("\nEnter which detail of the product: " + pid + " wants to update:");
-		System.out.println("1. Description \t 2. Price \t 3. Quanitity");
-		opt3 = input.nextInt();
-		input.nextLine();
+			// check if valid option is selected
+			if (opt3 >= 1 && opt3 <= 3) {
+				// get new description
+				if (opt3 == 1) {
+					System.out.print("Enter new description of the product: ");
+					new_detail = input.nextLine();
+				}
 
-		// check if valid option is selected
-		if (opt3 >= 1 && opt3 <= 3) {
-			// get new description
-			if (opt3 == 1) {
-				System.out.print("Enter new description of the product: ");
-				new_detail = input.nextLine();
-			}
+				// get new prize
+				else if (opt3 == 2) {
+					System.out.print("Enter new price of the product: ");
+					new_detail = input.nextLine();
+				}
 
-			// get new prize
-			else if (opt3 == 2) {
-				System.out.print("Enter new price of the product: ");
-				new_detail = input.nextLine();
-			}
+				// get new quantity
+				else if (opt3 == 3) {
+					System.out.print("Enter new quantity of the product: ");
+					new_detail = input.nextLine();
+				}
 
-			// get new quantity
-			else if (opt3 == 3) {
-				System.out.print("Enter new quantity of the product: ");
-				new_detail = input.nextLine();
-			}
+				info = pid + "," + opt3 + "," + new_detail;
 
-			info = pid + "," + opt3 + "," + new_detail;
+				// get confirmation from admin to update the product to the
+				// product
+				// list
+				System.out.print("Update ");
+				if (opt3 == 1)
+					System.out.print("description");
+				else if (opt3 == 2)
+					System.out.print("prize");
+				else if (opt3 == 3)
+					System.out.print("quantity");
+				System.out.print(" of the product id: " + pid + " to " + new_detail);
 
-			// get confirmation from admin to update the product to the product
+				System.out.println(
+						"\n\nKindly confirm, all information is correct and Update the mentioned product detail (Y/N)?");
+				opt2 = input.nextLine();
+
+				// if admin gives confirmation to update the product details
+				if (opt2.equalsIgnoreCase("Y")) {
+					try {
+						items = admincommand.sendACommand("update", info);
+
+						// if product is updated in the list
+						if (items.get(0).getMessage().equals("1"))
+							System.out.println("Product detail is updated in the Product List!!");
+
+						// if product is not updated in the list as product id
+						// is
+						// not present in the list
+						else if (items.get(0).getMessage().equals("-1"))
+							System.out.println(
+									"Product details can NOT be updated as Product ID is NOT present in the list!!");
+
+						// if product is not updated in the list
+						else if (items.get(0).getMessage().equals("0"))
+							System.out.println("Product detail can NOT be updated!!");
+
+					} catch (AuthorizationException ex) {
+						// catch user define exception in case of user role is
+						// not
+						// authorized to access this operation
+						System.out.println(ex.getMessage());
+					}
+				}
+				// if admin decline to add the product
+				else
+					System.out.println("Admin decline to update the product of the productList.");
+
+			} else
+				System.out.println("Please enter valid option!!");
+		} catch (InputMismatchException e) {
+			// If input is not integer than raise exception
+			input.nextLine();
+			System.err.println("Entered value is not an integer");
+		}
+		return 0;
+	}// updateProduct
+
+	// for Admin to delete the product
+	public int deleteProduct() {
+		System.out.println("***********Delete Product from Product List***********");
+		try {
+			// Get the id of the product which needs to be deleted
+			System.out.println("Enter product ID: ");
+			pid = input.nextInt();
+			input.nextLine();
+
+			// get confirmation from admin to delete the product to the product
 			// list
-			System.out.print("Update ");
-			if (opt3 == 1)
-				System.out.print("description");
-			else if (opt3 == 2)
-				System.out.print("prize");
-			else if (opt3 == 3)
-				System.out.print("quantity");
-			System.out.print(" of the product id: " + pid + " to " + new_detail);
+			System.out.println("Kindly confirm, Do you want to permanently delete the product id: " + pid
+					+ " from product list (Y/N)?");
+			opt2 = input.nextLine();
 
-			System.out.println(
-					"\n\nKindly confirm, all information is correct and Update the mentioned product detail (Y/N)?");
-			opt2 = input.next();
-
-			// if admin gives confirmation to update the product details
+			// if admin gives confirmation to delete the product
 			if (opt2.equalsIgnoreCase("Y")) {
 				try {
-					items = admincommand.sendACommand("update", info);
+					info = pid + "";
+					items = admincommand.sendACommand("delete", info);
 
-					// if product is updated in the list
+					// if product is deleted to the list
 					if (items.get(0).getMessage().equals("1"))
-						System.out.println("Product detail is updated in the Product List!!");
+						System.out.println("Product is deleted from the Product List!!");
 
-					// if product is not updated in the list as product id is
-					// not present in the list
+					// if product is not deleted from the list as product id is
+					// not present
 					else if (items.get(0).getMessage().equals("-1"))
 						System.out.println(
-								"Product details can NOT be updated as Product ID is NOT present in the list!!");
+								"Product can NOT be deleted from the Product List as same Product ID is NOT present in the list!!");
 
-					// if product is not updated in the list
+					// if product is not deleted from the list
 					else if (items.get(0).getMessage().equals("0"))
-						System.out.println("Product detail can NOT be updated!!");
+						System.out.println("Product can NOT be deleted from the Product List!!");
 
 				} catch (AuthorizationException ex) {
 					// catch user define exception in case of user role is not
@@ -268,65 +344,21 @@ public class Administrator extends AbstractView {
 					System.out.println(ex.getMessage());
 				}
 			}
+
 			// if admin decline to add the product
 			else
-				System.out.println("Admin decline to update the product of the productList.");
-
-		} else
-			System.out.println("Please enter valid option!!");
-		return 0;
-	}// updateProduct
-
-	// for Admin to delete the product
-	public int deleteProduct() {
-		System.out.println("***********Delete Product from Product List***********");
-		
-		//Get the id of the product which needs to be deleted
-		System.out.println("Enter product ID: ");
-		pid = input.nextInt();
-		input.nextLine();
-
-		// get confirmation from admin to delete the product to the product list
-		System.out.println("Kindly confirm, Do you want to permanently delete the product id: " + pid
-				+ " from product list (Y/N)?");
-		opt2 = input.next();
-
-		//if admin gives confirmation to delete the product
-		if (opt2.equalsIgnoreCase("Y")) {
-			try {
-				info = pid + "";
-				items = admincommand.sendACommand("delete", info);
-
-				// if product is deleted to the list
-				if (items.get(0).getMessage().equals("1"))
-					System.out.println("Product is deleted from the Product List!!");
-
-				// if product is not deleted from the list as product id is not present 
-				else if (items.get(0).getMessage().equals("-1"))
-					System.out.println(
-							"Product can NOT be deleted from the Product List as same Product ID is NOT present in the list!!");
-
-				// if product is not deleted from the list 
-				else if (items.get(0).getMessage().equals("0"))
-					System.out.println("Product can NOT be deleted from the Product List!!");
-
-			} catch (AuthorizationException ex) {
-				// catch user define exception in case of user role is not
-				// authorized to access this operation
-				System.out.println(ex.getMessage());
-			}
+				System.out.println("Admin decline to remove the Product from the productList.");
+		} catch (InputMismatchException e) {
+			// If input is not integer than raise exception
+			input.nextLine();
+			System.err.println("Entered value is not an integer");
 		}
-		
-		// if admin decline to add the product
-		else
-			System.out.println("Admin decline to remove the Product from the productList.");
-		
 		return 0;
 	}// deleteProduct
 
-	//Add new administrator for the application
+	// Add new administrator for the application
 	public int addAdmin() {
-		
+
 		System.out.println("***********Add New Admin***********");
 		// take user information as input from user
 		System.out.print("Enter the Name: ");
@@ -341,36 +373,35 @@ public class Administrator extends AbstractView {
 		info = name + "," + user_name + "," + password + "," + address;
 		try {
 			items = admincommand.sendACommand("addadmin", info);
-			
+
 			// if all the user details are not filled properly
-			if (items.get(0).getMessage().equals("-2")) 
+			if (items.get(0).getMessage().equals("-2"))
 				System.out.println("Please enter all the fields properly!!");
-			
+
 			// if new admin can not be added as username is already present
-			else if (items.get(0).getMessage().equals("-1")) 
+			else if (items.get(0).getMessage().equals("-1"))
 				System.out.println("Username already present. Please use another username!!");
-			
+
 			// if new admin is added in user list
 			else if (items.get(0).getMessage().equals("1")) {
 				System.out.println("Admin: " + name + " is registered/added successfully!!");
 				System.out.println("Please share the credentials with admin to login.");
-			} 
-			
-			// if new admin can not be added 
-			else if (items.get(0).getMessage().equals("0")) 
+			}
+
+			// if new admin can not be added
+			else if (items.get(0).getMessage().equals("0"))
 				System.out.println("New Admin can not be added. Please try again!!");
-			
 
 		} catch (AuthorizationException ex) {
 			// catch user define exception in case of user role is not
 			// authorized to access this operation
 			System.out.println(ex.getMessage());
 		}
-		
+
 		return 0;
 	} // addAdmin
 
-	//TO add new customer in the user list
+	// TO add new customer in the user list
 	public int addCustomer() {
 		System.out.println("***********Add New Customer***********");
 		// take user information as input from user
@@ -386,49 +417,48 @@ public class Administrator extends AbstractView {
 		info = name + "," + user_name + "," + password + "," + address;
 		try {
 			items = admincommand.sendACommand("addcustomer", info);
-			
+
 			// if all the user details are not filled properly
-			if (items.get(0).getMessage().equals("-2")) 
+			if (items.get(0).getMessage().equals("-2"))
 				System.out.println("Please enter all the fields properly!!");
-			
+
 			// if new customer can not be added as username is already present
-			else if (items.get(0).getMessage().equals("-1")) 
+			else if (items.get(0).getMessage().equals("-1"))
 				System.out.println("Username already present. Please use another username!!");
-			
+
 			// if new customer is added in user list
 			else if (items.get(0).getMessage().equals("1")) {
 				System.out.println("Customer: " + name + " is registered/added successfully!!");
 				System.out.println("Please share the credentials with customer to login.");
-			} 
-			
+			}
+
 			// if new customer can not be added in user list
-			else if (items.get(0).getMessage().equals("0")) 
+			else if (items.get(0).getMessage().equals("0"))
 				System.out.println("New customer can not be added. Please try again!!");
-			
 
 		} catch (AuthorizationException ex) {
 			// catch user define exception in case of user role is not
 			// authorized to access this operation
 			System.out.println(ex.getMessage());
 		}
-		
+
 		return 0;
 	}// addCustomer
 
-	//TO remove  customer from the user list
+	// TO remove customer from the user list
 	public int removeCustomer() {
 		System.out.println("***********Delete Customer from User List***********");
-		
-		//get the customer username
+
+		// get the customer username
 		System.out.println("Enter username of the customer: ");
 		user_name = input.nextLine();
 
 		// get confirmation from admin to delete the product to the product list
 		System.out.println("Kindly confirm, Do you want to permanently delete the customer user: " + user_name
 				+ " from user list (Y/N)?");
-		opt2 = input.next();
+		opt2 = input.nextLine();
 
-		//if admin gives confirmation to remove the customer
+		// if admin gives confirmation to remove the customer
 		if (opt2.equalsIgnoreCase("Y")) {
 			try {
 
@@ -438,11 +468,12 @@ public class Administrator extends AbstractView {
 				if (items.get(0).getMessage().equals("1"))
 					System.out.println("Customer user is deleted from the User List!!");
 
-				// if customer can not be removed from the list as username is not present in the list
+				// if customer can not be removed from the list as username is
+				// not present in the list
 				else if (items.get(0).getMessage().equals("-1"))
 					System.out.println(
 							"Customer user can NOT be deleted from the User List as username is NOT present in the list!!");
-				
+
 				// if customer can not be removed from the list
 				else if (items.get(0).getMessage().equals("0"))
 					System.out.println("Customer user can NOT be deleted from the User List!!");
@@ -453,11 +484,11 @@ public class Administrator extends AbstractView {
 				System.out.println(ex.getMessage());
 			}
 		}
-		
+
 		// if admin decline to add the product
 		else
 			System.out.println("Admin decline to remove the Customer user from the user List.");
-		
+
 		return 0;
 	}// removeCustomer
 

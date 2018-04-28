@@ -199,7 +199,7 @@ public class CustomerModel {
 	}// custShopping
 
 	// customer user to purchase product from cart
-	public List<itemList> custPurchase(Session session, String info) {
+	public synchronized List<itemList> custPurchase(Session session, String info) {
 		System.out.println("Customer wants to Purchase the product(s) from his shopping cart!!");
 		items = new ArrayList<itemList>();
 		purchaseOrder = new ArrayList<String>();
@@ -234,7 +234,8 @@ public class CustomerModel {
 					// if product purchased then add appropriate message in the
 					// list
 					if (result != 0) {
-						System.out.println("Order placed for Product: " + productid + " with quantity: " + quantity);
+						System.out.println("Order placed for Product: " + productid + " with quantity: " + 
+								quantity + "for customer id " + userid);
 						result2 = exedb.insertPurchase(shid);
 						purchaseOrder.add("Order placed for Product id: " + productid + " with quantity: " + quantity);
 
@@ -243,7 +244,7 @@ public class CustomerModel {
 					// if product can not be purchased then add appropriate
 					// message in the list
 					else {
-						System.out.println("Order can not be placed for Product: " + productid);
+						System.out.println("Order can not be placed for Product: " + productid + "for customer id " + userid);
 						purchaseOrder.add(
 								"Order can NOT be placed for Product id: " + productid + " with quantity: " + quantity);
 
@@ -256,7 +257,8 @@ public class CustomerModel {
 				// than the available quantity
 				else {
 					System.out.println("Product id: " + productid
-							+ " can NOT be purchased as ordered quantity is greater than the available quantity!!");
+							+ " can NOT be purchased as ordered quantity is greater than the available quantity!!"
+							+ "for customer id " + userid);
 					purchaseOrder.add("Product id: " + productid
 							+ " can NOT be purchased as ordered quantity is greater than the available quantity!! Kindly recheck the quantity.");
 

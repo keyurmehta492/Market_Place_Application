@@ -6,6 +6,7 @@
 
 package view;
 
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -24,7 +25,7 @@ import server.itemList;
 public class Customer extends AbstractView {
 
 	private String username;
-	private int opt;
+	private String opt;
 	private String opt2;
 	private int pid, pquantity;
 
@@ -55,23 +56,29 @@ public class Customer extends AbstractView {
 			System.out.println("4. Log out");
 			System.out.println("Please enter your choice: ");
 
-			opt = input.nextInt();
+			opt = input.nextLine();
 
 			switch (opt) {
-			case 1:
+			case "1":
 				browseProduct();
 				break;
 
-			case 2:
+			case "2":
 				shoppingCart();
 				break;
 
-			case 3:
+			case "3":
 				viewShoppingCart();
 				break;
-			}
+			
+			case "4":
+				break;
+				
+			default:
+				System.out.println("Enter valid option!!");
+			}// switch
 
-		} while (opt != 4);
+		} while (!opt.equals("4"));
 
 		System.out.println("Thank you for using MarketPlace Application! Happy Shopping !!");
 
@@ -88,7 +95,7 @@ public class Customer extends AbstractView {
 
 			// Display available product details with proper format
 			for (itemList value : items) {
-				if (value.getItemID() != 0 && value.getItemQuantity() != 0) {
+				if (value.getItemID() != 0 && value.getItemQuantity() > 0) {
 					System.out.printf("%-6d\t%-15s\t%-20s\t%-15s\t%-6.2f\t%-3d\n", value.getItemID(),
 							value.getItemName(), value.getItemDesc(), value.getItemType(), value.getItemPrize(),
 							value.getItemQuantity());
@@ -114,7 +121,7 @@ public class Customer extends AbstractView {
 			pid = input.nextInt();
 			System.out.println("Enter quantity of product: ");
 			pquantity = input.nextInt();
-
+			input.nextLine();
 			items = customerCommand.sendCCommand("shoppingCart", pid + "," + pquantity);
 
 			// if product quantity is greater than the available quantity
@@ -146,6 +153,10 @@ public class Customer extends AbstractView {
 			// catch user define exception in case of user role is not
 			// authorized to access this operation
 			System.out.println(ex.getMessage());
+		} catch (InputMismatchException e) {
+			// If input is not integer than raise exception
+			input.nextLine();
+			System.err.println("Entered value is not an integer");
 		}
 		return 0;
 	}// shoppingCart
@@ -172,7 +183,7 @@ public class Customer extends AbstractView {
 			if (items.size() > 1) {
 
 				System.out.println("\nKindly confirm, Do you want to purchase all prodcuts in shopping cart (Y/N)?");
-				opt2 = input.next();
+				opt2 = input.nextLine();
 
 				// if customer gives confirmation to purchase the product
 				if (opt2.equalsIgnoreCase("Y")) {
@@ -205,7 +216,7 @@ public class Customer extends AbstractView {
 			System.out.println(items.get(counter).getMessage());
 		}
 		System.out.println("===========================================================");
-		
+
 	} // purchaseCart
 
 } // class Customer
