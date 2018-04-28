@@ -95,7 +95,7 @@ public class executeDatabase {
 		if (usertype == 1)
 			query = "SELECT * FROM product";
 		else if (usertype == 0)
-			query = "SELECT * FROM product";
+			query = "SELECT * FROM product WHERE quantity_available > 0";
 
 		synchronized(this) {
 			rs = execute(query);
@@ -229,10 +229,8 @@ public class executeDatabase {
 		query = "UPDATE product SET quantity_available = quantity_available - " + quantity + " WHERE productid = "
 				+ productid;
 		
-		synchronized(this) {
 			result = executeUpdate(query);
-		}
-		
+				
 		return result;
 	}// purchaseProduct
 
@@ -240,11 +238,9 @@ public class executeDatabase {
 	public int insertPurchase(int shid) {
 
 		query = "UPDATE shoppingcart SET ispurchased = 1 WHERE shid = " + shid;
-		
-		synchronized(this) {
+				
 			result = executeUpdate(query);
-		}
-		
+				
 		return result;
 	}// insertPurchase
 
